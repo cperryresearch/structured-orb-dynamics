@@ -13,7 +13,7 @@ No physical model is assumed; everything is based on what can be measured direct
 
 Install the usual Python packages (numpy, scipy, matplotlib). Nothing special is required.
 
-### Repository layout
+### Repository Layout
 
 manuscript/  PDF and source files. Full write-up (Parts I–IV).
 
@@ -32,7 +32,7 @@ python tracking/run_tracking.py
 python features/compute_features.py  
 python model/run_state_model.py
 
-### PR018 summary
+### PR018 Summary
 
 PR018 is the only dataset where a usable trajectory could be reconstructed.  
 Basic steps:
@@ -45,7 +45,7 @@ Basic steps:
 
 ### The results here match those described in the manuscript.
 
-### GIMBAL note
+### GIMBAL Note
 
 A short write-up is included.  
 Only qualitative observations were possible.  
