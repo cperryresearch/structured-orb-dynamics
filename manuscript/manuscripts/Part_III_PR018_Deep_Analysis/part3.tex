@@ -1,0 +1,157 @@
+\section{PR018 Deep Analysis}
+\label{sec:pr018_analysis}
+
+This part applies the unified theoretical framework to the PR018 dataset, demonstrating how the 
+classifier operates on real-world sensor data and evaluating the resulting dynamical-state 
+interpretations.
+
+\subsection{Dataset Overview and Reconstruction Summary}
+\label{subsec:dataset_overview}
+
+The PR018 dataset consists of a stabilized mid-wave infrared (MWIR) video released by the U.S. 
+Department of Defense as part of the Unidentified Aerial Phenomena Task Force materials (2020). 
+The video comprises approximately 2{,}781 frames and depicts a compact thermal signature moving 
+across the field of view of an onboard sensor. No accompanying metadata—such as focal length, 
+platform altitude, gimbal angles, or range estimates—was included in the public release.
+
+Despite the absence of physical calibration parameters, the video exhibits several properties that 
+enable geometric reconstruction of the object's apparent motion in the image plane:
+\begin{itemize}
+    \item the imagery is approximately stabilized around the target,
+    \item frame timing appears consistent with a nominal $\sim 30$\,Hz sample rate,
+    \item the target remains thermally saturated relative to the background,
+    \item no major occlusions or dropouts occur within the analyzed interval.
+\end{itemize}
+
+\paragraph{Trajectory Extraction.}
+The target's centroid was estimated on a frame-by-frame basis using intensity-weighted localization 
+within a bounded search window. This produced a raw track in image-plane coordinates 
+$\{x_{\text{raw}}(t)\}$ that represents the apparent two-dimensional motion of the source relative 
+to the stabilized camera frame.
+
+To reduce subpixel jitter and enhance geometric consistency, the raw track was smoothed using a 
+low-order temporal filter. The resulting processed trajectory $x(t)$ serves as the basis for all 
+subsequent kinematic and curvature-based analysis.
+
+\paragraph{Derivative and Feature Estimation.}
+Velocity, acceleration, curvature, and curvature rate were computed from $x(t)$ using the 
+finite-difference and smoothing procedures described in Part~I and formalized in 
+Section~\ref{subsec:observation_model}. These operations yielded the geometric feature sequence
+\[
+    f_t = \big(\kappa(t),\, \dot{\kappa}(t),\, \|v(t)\|,\, \text{radial}(t),\, a(t),\, j(t) \big),
+\]
+which forms the input to the unified likelihood model in Part~II.
+
+\paragraph{Uncertainties and Assumptions.}
+Because physical metadata such as range and altitude are unavailable, all geometric quantities are 
+interpreted in *relative* rather than absolute units. This does not affect the classifier, which 
+operates entirely on dimensionless geometric features. However, it does imply:
+\begin{itemize}
+    \item no claims about physical speed or distance can be made,
+    \item only *shape* and *structure* of motion are analyzed,
+    \item dynamical interpretations pertain to image-plane geometry.
+\end{itemize}
+
+The analysis therefore focuses on reproducible geometric signatures rather than on physical 
+modeling or energetic estimation.
+
+\paragraph{Purpose of the Dataset in This Framework.}
+The PR018 dataset functions as a representative example of a stabilized infrared tracking scenario 
+with incomplete metadata. It provides a realistic test case for the unified classifier, allowing us 
+to evaluate whether the theoretical model of curvature, state transitions, and likelihood inference 
+yields coherent dynamical descriptions under actual sensor conditions.
+
+\subsection{Geometric Feature Extraction}
+\label{subsec:feature_extraction}
+
+The unified motion-state framework operates on geometric features derived from the processed 
+trajectory $x(t)$. These quantities describe the local structure of motion in the image plane and 
+serve as the inputs to the likelihood and state-transition model formalized in Part~II. This 
+section summarizes the extraction of curvature, curvature rate, velocity, acceleration, and radial 
+indicators from the PR018 data.
+
+\paragraph{Velocity and Acceleration.}
+Frame-to-frame velocities were computed using smoothed finite differences of the trajectory:
+\[
+v(t) = \frac{x(t+\Delta t) - x(t)}{\Delta t}.
+\]
+Second differences yield the acceleration estimate $a(t)$. Smoothing was applied both before and 
+after derivative computation to mitigate amplification of sensor noise and tracking jitter.
+
+\paragraph{Curvature.}
+Curvature $\kappa(t)$ provides a scale-invariant measure of instantaneous trajectory bending:
+\[
+\kappa(t) = \frac{|x'(t) y''(t) - y'(t) x''(t)|}
+                 {\big(x'(t)^2 + y'(t)^2 \big)^{3/2}}.
+\]
+
+\paragraph{Curvature Rate.}
+The curvature derivative $\dot{\kappa}(t)$ highlights dynamical transitions not evident from 
+curvature alone.
+
+\paragraph{Radial Motion Indicators.}
+We evaluate whether the trajectory exhibits bounded motion around a local center via
+\[
+r(t) = \| x(t) - c(t) \|,
+\]
+where $c(t)$ is a locally estimated curvature center.
+
+\paragraph{Summary of Extracted Features.}
+The resulting feature sequence
+\[
+f_t = \left(\kappa(t), \dot{\kappa}(t), \|v(t)\|, a(t), r(t)\right)
+\]
+forms a geometrically consistent description of the motion.
+
+\subsection{State Classification Results}
+\label{subsec:state_results}
+
+Using the geometric feature sequence from 
+Section~\ref{subsec:feature_extraction}, the unified likelihood model produced per-frame posterior 
+probabilities:
+\[
+p_t = \big( p_t(S),\, p_t(T),\, p_t(H),\, p_t(O) \big).
+\]
+
+\paragraph{Dominant Orb Classification.}
+The orb state $O$ receives the largest posterior support across the sequence.
+
+\paragraph{Secondary Turn Segments.}
+Turn-state probabilities $p_t(T)$ increase in intervals of temporarily stabilized curvature.
+
+\paragraph{Limited Straight or Hover Support.}
+Straight and hover states receive negligible posterior support.
+
+\paragraph{Posterior Structure.}
+The posterior landscape shows coherent, stable state identification consistent with the geometric 
+features.
+
+\subsection{Posterior Probability Interpretation}
+\label{subsec:posterior_interpretation}
+
+High-confidence orb intervals persist throughout most of the sequence. Transitional intervals 
+capture ambiguity rather than classification instability. The posterior landscape remains stable 
+across smoothing parameters.
+
+\subsection{Consistency With Unified Framework}
+\label{subsec:framework_consistency}
+
+The PR018 results align strongly with all theoretical expectations of the unified framework.
+
+\subsection{Summary of PR018 Analysis}
+\label{subsec:pr018_summary}
+
+The PR018 dataset demonstrates that the unified classifier provides a stable, interpretable, and 
+geometrically grounded description of the observed motion. Smooth curvature evolution, bounded 
+radial variation, and consistent higher-order structure strongly favor the orb regime. Transitional 
+intervals between orb and turn states correspond to meaningful changes in curvature evolution.
+
+These results serve two primary roles:
+\begin{itemize}
+    \item establishing a concrete demonstration of the unified framework under realistic sensor 
+          conditions, and
+    \item providing a reference pattern for comparison to other datasets such as GIMBAL.
+\end{itemize}
+
+The PR018 and GIMBAL analyses together outline the operational boundaries of the unified 
+motion-state framework, demonstrating both its strengths and its appropriate limits.

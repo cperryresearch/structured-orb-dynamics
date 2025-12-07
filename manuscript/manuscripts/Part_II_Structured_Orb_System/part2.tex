@@ -1,0 +1,589 @@
+% ==============================
+% PART II – THEORETICAL FRAMEWORK
+% ==============================
+
+Part~II develops the mathematical and conceptual foundations of the Orb Motion Classifier.
+Where Part~I focused on constructing empirical trajectories, estimating curvature, and evaluating
+state likelihoods, this part formalizes the geometric principles that make those operations
+coherent. Here we introduce the theoretical structure that explains why the classifier behaves
+as it does, how curvature and its derivatives encode dynamical information, and under what
+conditions the resulting motion-state framework can generalize across heterogeneous datasets
+with incomplete metadata.
+
+The goal of this part is to unify curvature-based diagnostics, discrete motion-state modeling, and 
+probabilistic classification under a single coherent analytical framework. This enables rigorous 
+interpretation of state transitions, diagnostic consistency across datasets, and transparent 
+assumptions for future extensions.
+
+% --------------------------------
+% UNIFIED THEORY FRAMEWORK SECTION
+% --------------------------------
+
+\section{Unified Theory Framework}
+\label{sec:unified_framework}
+
+This section introduces the theoretical architecture that unifies curvature-based motion analysis, 
+discrete dynamical state modeling, and probabilistic classification into a single interpretable 
+framework. The objective is to establish a mathematically consistent foundation for analyzing 
+unknown aerial trajectories and comparing their dynamical signatures across heterogeneous datasets.
+
+% --------------------------------
+% 2.1 Overview of Motion-State Geometry
+% --------------------------------
+
+\subsection{Overview of Motion-State Geometry}
+\label{subsec:geometry_overview}
+
+We define four fundamental motion states characterized by geometric invariants:
+
+\begin{itemize}
+    \item \textbf{Straight State ($S$)}: low curvature, stable direction of motion.
+    \item \textbf{Turn State ($T$)}: sustained nonzero curvature with consistent turning direction.
+    \item \textbf{Hover State ($H$)}: minimal displacement and low-speed regime.
+    \item \textbf{Orb State ($O$)}: smoothly varying curvature with continuous higher derivatives.
+\end{itemize}
+
+Each state corresponds to a qualitatively distinct dynamical behavior and is identified through 
+features derived from velocity, acceleration, and curvature signals.
+
+These geometric distinctions form the foundation of the unified framework by mapping observable 
+trajectory features to interpretable dynamical categories.
+
+% --------------------------------
+% 2.2 Curvature as a State Variable
+% --------------------------------
+
+\subsection{Curvature as a State Variable}
+\label{subsec:curvature_state}
+
+Curvature plays a central role in the unified motion-state framework because it provides a 
+coordinate-invariant measure of how a trajectory departs from straight-line motion. Unlike 
+velocity or acceleration—both of which depend on external reference frames—curvature is an 
+intrinsic geometric property of the path itself. It therefore offers a stable discriminator of 
+motion regimes, even when sensor metadata or absolute position information is incomplete.
+
+Let $x(t) = (x_1(t), x_2(t))$ denote the reconstructed 2D trajectory in image-plane coordinates. 
+The instantaneous curvature is defined as:
+\begin{equation}
+    \kappa(t) = 
+    \frac{|x'(t) y''(t) - y'(t) x''(t)|}
+    {\big( x'(t)^2 + y'(t)^2 \big)^{3/2}},
+    \label{eq:curvature}
+\end{equation}
+with the standard extension to 3D trajectories as needed. Curvature evaluates how sharply the 
+trajectory bends at each moment; $\kappa(t) \approx 0$ corresponds to straight-line motion, while 
+larger values indicate progressively tighter turning.
+
+\paragraph{Curvature Rate and Jerk Minimization.}
+The temporal derivative $\dot{\kappa}(t)$ captures how curvature evolves over time. In many 
+natural and engineered systems, high-frequency fluctuations in $\dot{\kappa}(t)$ are suppressed 
+due to energetic or physical constraints, producing trajectories that minimize jerk. This yields:
+\begin{itemize}
+    \item slowly varying curvature in straight and turning motion,
+    \item noisy or unstable curvature estimates during hover,
+    \item smooth, bounded curvature evolution in the orb regime.
+\end{itemize}
+
+\paragraph{Curvature Under Measurement Noise.}
+Because curvature depends on first and second derivatives, it is sensitive to noise. To mitigate 
+this, curvature estimation proceeds through:
+\begin{enumerate}
+    \item temporal smoothing of the trajectory,
+    \item finite-difference derivative estimation,
+    \item normalization to account for varying speed,
+    \item thresholding when velocity approaches zero.
+\end{enumerate}
+
+These steps preserve the qualitative structure of the curvature trace while suppressing 
+frame-to-frame irregularities. Even under moderate noise, curvature retains the essential 
+patterns needed to discriminate between straight, turning, hovering, and orb-like motion.
+
+\paragraph{Why Curvature is Foundational.}
+Curvature is the logical basis for the unified model because it offers:
+\begin{itemize}
+    \item \textbf{Geometric Invariance:} independence from coordinate frames.
+    \item \textbf{State Separation:} each motion regime produces a distinct curvature profile.
+    \item \textbf{Probabilistic Compatibility:} $\kappa(t)$ and $\dot{\kappa}(t)$ integrate 
+          naturally into likelihood models.
+\end{itemize}
+
+Curvature therefore provides an interpretable, noise-tolerant bridge between observable kinematic 
+features and the dynamical state model described next.
+
+% --------------------------------
+% 2.3 Discrete Dynamical State Model
+% --------------------------------
+
+\subsection{Discrete Dynamical State Model}
+\label{subsec:state_model}
+
+While curvature provides an instantaneous geometric description of motion, many behaviors of 
+interest unfold over extended time intervals. To capture these temporal dependencies, we model 
+the evolving motion regime as a discrete state process
+\[
+    S_t \in \mathcal{S} = \{ S,\, T,\, H,\, O \},
+\]
+where $S$, $T$, $H$, and $O$ denote the straight, turn, hover, and orb states, respectively. The 
+state variable $S_t$ summarizes the dominant dynamical behavior at time $t$, integrating local 
+geometric cues with temporal smoothing that reflects physical continuity.
+
+\paragraph{State-Transition Structure.}
+We assume that state evolution follows a first-order Markov process:
+\[
+    \mathbb{P}(S_{t} = s' \mid S_{t-1} = s,\, x_{1:t}) 
+    = \mathbb{P}(S_{t} = s' \mid S_{t-1} = s),
+\]
+where $x_{1:t}$ denotes all observations up to time $t$. Although the classifier incorporates 
+observational likelihoods, the transition structure itself depends only on the preceding state. 
+This assumption reflects the notion that sudden, high-frequency transitions between strongly 
+different dynamical regimes are physically improbable.
+
+The transition matrix encodes:
+\begin{itemize}
+    \item high self-transition probabilities (temporal persistence),
+    \item moderate transitions among compatible states (e.g., $S \leftrightarrow T$),
+    \item suppressed transitions between incompatible states (e.g., $H \rightarrow S$ without 
+          acceleration),
+    \item rare transitions into or out of the orb state, reflecting its specialized geometry.
+\end{itemize}
+
+\paragraph{State-Conditional Likelihood Models.}
+Each state generates characteristic patterns in curvature, velocity, and acceleration. We model 
+the likelihood of observing the geometric features $f_t$ at time $t$ under each state as
+\[
+    \mathcal{L}(f_t \mid S_t = s),
+\]
+with $f_t$ drawn from the quantities estimated in Part I, including curvature $\kappa(t)$, 
+curvature rate $\dot{\kappa}(t)$, speed $\|v(t)\|$, radial boundedness indicators, and derivative 
+signatures.
+
+Informally:
+\begin{itemize}
+    \item Straight motion ($S$) favors $\kappa(t) \approx 0$ with small $\dot{\kappa}(t)$.
+    \item Turning motion ($T$) favors sustained nonzero curvature with sign consistency.
+    \item Hovering ($H$) yields low speeds and unstable curvature estimates.
+    \item Orb motion ($O$) favors smooth, bounded curvature with coherent evolution over time.
+\end{itemize}
+
+These likelihood models do not enforce deterministic boundaries; instead, they assign weights 
+reflecting how well each state explains the observed geometry.
+
+\paragraph{Physical and Dynamical Constraints.}
+The state model incorporates minimal structural assumptions motivated by physical feasibility:
+\begin{itemize}
+    \item Hover ($H$) cannot transition abruptly to high-speed turning without intermediate 
+          acceleration.
+    \item Orb motion ($O$) requires multiple consecutive frames of bounded radial displacement.
+    \item Straight and turn states ($S$ and $T$) may interleave but typically preserve short-term 
+          curvature trends.
+    \item State changes must occur over time scales longer than the sampling interval, unless 
+          curvature or velocity exhibit clear discontinuities.
+\end{itemize}
+
+These constraints improve robustness by suppressing implausible sequences caused by noise or 
+momentary reconstruction artifacts.
+
+\paragraph{Dynamical Interpretation.}
+The discrete state process provides an interpretable temporal summary of the trajectory. Rather 
+than treating each frame independently, the Markov model links adjacent estimates, promoting 
+temporal coherence and enabling identification of multi-frame regimes such as:
+\begin{itemize}
+    \item extended straight-line traversals,
+    \item arcs or turning maneuvers,
+    \item hovering intervals,
+    \item sustained orbital patterns.
+\end{itemize}
+
+This structure forms the backbone of the unified classification framework. By encoding motion 
+behavior as a sequence of discrete, interpretable states, the model creates a bridge between raw 
+kinematic measurements and the higher-level dynamical diagnostics developed throughout Part II.
+
+% --------------------------------
+% 2.4 Observation Model
+% --------------------------------
+
+\subsection{Observation Model}
+\label{subsec:observation_model}
+
+The unified framework relies on geometric quantities—such as curvature, curvature rate, velocity, 
+and radial displacement—that are derived from visual observations rather than direct physical 
+measurements. As a result, the accuracy and interpretability of the model depend critically on the 
+observation pipeline that reconstructs the trajectory $x(t)$ from the underlying sensor data. This 
+section formalizes the assumptions and procedures that govern this reconstruction.
+
+\paragraph{Platform-Motion Compensation.}
+Raw sensor imagery often reflects the combined motion of the target and the recording platform. 
+To isolate the target's apparent motion in the image plane, we apply stabilization procedures that 
+compensate for platform drift, gimbal rotation, and camera jitter. Although the PR-018 dataset lacks 
+complete metadata, frame-to-frame alignment via optical or structural features provides an 
+approximate but effective means of isolating relative motion. The resulting stabilized track serves 
+as the input for curvature and derivative estimation.
+
+\paragraph{Noise Characterization.}
+Visual tracking is inherently noisy due to factors including:
+\begin{itemize}
+    \item optical-flow estimation error,
+    \item thermal noise and sensor quantization,
+    \item compression artifacts,
+    \item partial occlusions or frame cropping.
+\end{itemize}
+
+We treat these noise sources as zero-mean disturbances that perturb the observed position. Their 
+primary effect is to introduce short-scale variability in velocity and second derivatives. Because 
+curvature depends on these derivatives, subsequent smoothing is essential to recovering meaningful 
+geometric structure.
+
+\paragraph{Finite-Difference Derivative Estimation.}
+Velocity and acceleration are estimated using centered finite differences over the stabilized 
+trajectory:
+\[
+    v(t) \approx \frac{x(t+\Delta t) - x(t-\Delta t)}{2\Delta t}, \qquad
+    a(t) \approx \frac{x(t+\Delta t) - 2x(t) + x(t-\Delta t)}{\Delta t^2}.
+\]
+These estimates define the curvature $\kappa(t)$ and curvature rate $\dot{\kappa}(t)$ introduced 
+in Sections~\ref{subsec:geometry_overview}–\ref{subsec:curvature_state}. Finite differences are 
+sensitive to noise but provide unbiased estimates under mild smoothness assumptions. Their 
+simplicity also ensures reproducibility and transparency across datasets.
+
+\paragraph{Temporal Smoothing of Geometric Quantities.}
+To mitigate derivative amplification of noise, we apply temporal smoothing to $x(t)$ or to the 
+derived velocity and curvature sequences. Smoothing may be implemented using moving averages, 
+Savitzky–Golay filtering, or low-order polynomial fits, depending on dataset resolution. The 
+objective is to preserve low-frequency geometric structure—such as sustained curvature or gradual 
+turning—while suppressing frame-level jitter.
+
+\paragraph{Mapping Observations to State Features.}
+The observation model defines the sequence of feature vectors
+\[
+    f_t = \big(\kappa(t),\, \dot{\kappa}(t),\, \|v(t)\|,\, \text{radial}(t),\, a(t),\, j(t) \big),
+\]
+where “radial” denotes boundedness indicators and $j(t)$ the estimated jerk. These features serve as 
+inputs to the likelihood models of Section~\ref{subsec:state_model}. Importantly, the observation model 
+does not assume perfect accuracy: instead, it is designed to generate stable geometric summaries 
+that remain robust under moderate noise.
+
+\paragraph{Interpretive Role.}
+By formalizing how raw sensor data is transformed into geometric descriptors, the observation model 
+provides a transparent foundation for the unified framework. It clarifies the assumptions underlying 
+trajectory reconstruction, identifies sources of uncertainty, and ensures that curvature-based 
+classification remains grounded in observable quantities rather than unverified metadata or 
+assumptions about sensor configuration.
+
+% --------------------------------
+% 2.5 Orb-State Justification
+% --------------------------------
+
+\subsection{Orb-State Justification}
+\label{subsec:orb_justification}
+
+The introduction of the orb state is motivated by empirical patterns in curvature and radial 
+structure that cannot be adequately explained by classical categories such as straight motion, 
+turning, or hovering. The orb state captures a regime in which the trajectory exhibits smooth, 
+continuous curvature evolution together with bounded radial displacement relative to a local 
+center. This combination of properties produces a distinctive dynamical signature that persists 
+across multiple frames.
+
+\paragraph{Curvature Evolution.}
+Unlike standard turning motion—which is characterized by approximately constant curvature over a 
+segment—the orb regime features curvature that varies continuously while remaining bounded away 
+from zero. This produces a smooth “wavelike” evolution of $\kappa(t)$ and $\dot{\kappa}(t)$, 
+reflecting gradual reorientation rather than rigid circular turning or erratic curvature noise. 
+Empirically, such curvature traces display:
+\begin{itemize}
+    \item sustained nonzero curvature,
+    \item coherent temporal evolution with low jerk,
+    \item inflection patterns inconsistent with constant-radius turns,
+    \item resilience to frame-level noise even after smoothing.
+\end{itemize}
+
+These features cannot be reliably modeled as either straight or turning motion.
+
+\paragraph{Radial Boundedness.}
+A defining characteristic of orbital-like motion is approximate radial boundedness: the trajectory
+remains within a finite neighborhood of a time-varying local center. This condition is weaker than 
+true circular motion—no strict radius or periodicity is assumed—but it distinguishes the orb state 
+from turning, which typically lacks consistent radial structure. Radial boundedness is estimated 
+using:
+\begin{itemize}
+    \item local center-of-curvature approximations,
+    \item short-horizon estimates of displacement from inferred centers,
+    \item variance thresholds on radial deviation.
+\end{itemize}
+
+When curvature is smooth and the radius of curvature fluctuates within bounded limits, the 
+trajectory exhibits a recognizable orbital pattern.
+
+\paragraph{Distinction From Hovering and Noise-Dominated Motion.}
+Hovering motion often produces unstable curvature estimates because small positional noise creates 
+large derivative fluctuations. In contrast, the orb state maintains stable curvature even at slow 
+speeds due to coherent geometric structure. The orb state therefore cannot be explained as a 
+noise artifact or jitter amplification and instead reflects meaningful kinematic organization.
+
+\paragraph{Physical Non-Commitment.}
+The orb state is not intended to imply any specific propulsion mechanism, control system, or 
+underlying physics. It is a descriptive motion category defined solely by geometric and temporal 
+signatures. The framework does not infer intent, internal structure, or energetic constraints; it 
+merely classifies observable trajectory features into a consistent state taxonomy.
+
+\paragraph{Diagnostic Value.}
+Introducing the orb state improves classification accuracy and interpretability by preventing 
+mis-labeling of coherent, bounded-curvature regimes as either turning or hovering. This yields:
+\begin{itemize}
+    \item cleaner temporal segmentation,
+    \item reduced state ambiguity,
+    \item improved likelihood separation,
+    \item more informative downstream inference.
+\end{itemize}
+
+The orb state therefore plays a central role in the unified framework by capturing a distinct,
+empirically motivated mode of motion that emerges naturally from curvature-based analysis.
+
+% --------------------------------
+% 2.6 Unified Likelihood Model
+% --------------------------------
+
+\subsection{Unified Likelihood Model}
+\label{subsec:likelihood_model}
+
+The unified likelihood model integrates geometric features, temporal dependencies, and state 
+priors into a coherent probabilistic framework for motion-state classification. Given the feature 
+sequence $\{f_t\}$ extracted from the observation model, the goal is to infer the posterior 
+probabilities
+\[
+    \mathbb{P}(S_t = s \mid f_{1:t})
+\]
+for each state $s \in \mathcal{S}$. This section formalizes the likelihood structure that links 
+geometric observations to the discrete state process.
+
+\paragraph{Feature Likelihoods.}
+For each state $s$, we define a state-conditional likelihood
+\[
+    \mathcal{L}(f_t \mid S_t = s),
+\]
+which evaluates how well the observed geometric features at time $t$ agree with the characteristic 
+patterns of state $s$. These features include:
+\begin{itemize}
+    \item curvature $\kappa(t)$,
+    \item curvature rate $\dot{\kappa}(t)$,
+    \item speed $\|v(t)\|$,
+    \item acceleration magnitude $\|a(t)\|$,
+    \item radial boundedness indicators,
+    \item jerk estimates $j(t)$.
+\end{itemize}
+
+The likelihood models are intentionally simple—typically Gaussian or log-normal components—
+ensuring interpretability and robustness across heterogeneous datasets.
+
+\paragraph{State Priors and Transition Dynamics.}
+The Markovian structure introduced in Section~\ref{subsec:state_model} contributes a prior 
+distribution on state evolution:
+\[
+    \mathbb{P}(S_t = s' \mid S_{t-1} = s) = T_{s,s'},
+\]
+where $T$ is the transition matrix. The transition priors encode temporal smoothness by 
+favoring:
+\begin{itemize}
+    \item self-transitions (persistence of motion regimes),
+    \item transitions between compatible states (e.g., straight-to-turn),
+    \item rare transitions into or out of the orb state without geometric justification.
+\end{itemize}
+
+These priors regularize the classification process, reducing sensitivity to noise and preventing 
+implausible state-switching behavior.
+
+\paragraph{Joint Likelihood and Posterior Inference.}
+Combining likelihoods and priors yields the joint probability of the state sequence and feature 
+sequence:
+\[
+    \mathbb{P}(S_{1:T}, f_{1:T}) 
+    = \mathbb{P}(S_1) \prod_{t=2}^T T_{S_{t-1},S_t}
+      \prod_{t=1}^T \mathcal{L}(f_t \mid S_t).
+\]
+
+Posterior inference proceeds by computing:
+\[
+    \mathbb{P}(S_t \mid f_{1:T}),
+\]
+using standard dynamic programming techniques such as the forward–backward algorithm. This ensures 
+that every state assignment reflects both local geometric evidence and global temporal coherence.
+
+\paragraph{Interpretability of Posterior Probabilities.}
+Posterior state probabilities provide an intuitive and transparent summary of the classifier's 
+output. They allow researchers to:
+\begin{itemize}
+    \item identify dominant motion regimes over time,
+    \item visualize confidence in state transitions,
+    \item localize ambiguous or noisy segments,
+    \item compare dynamical behavior across datasets.
+\end{itemize}
+
+Rather than producing a single hard label, the classifier outputs a probability distribution over 
+states at each frame, allowing uncertainty to be represented explicitly.
+
+\paragraph{Unified Structure.}
+The unified likelihood model links together the major components of the theoretical framework:
+\begin{itemize}
+    \item curvature-based geometry (Sections~\ref{subsec:geometry_overview}--\ref{subsec:curvature_state}),
+    \item temporal state dynamics (Section~\ref{subsec:state_model}),
+    \item observation and noise modeling (Section~\ref{subsec:observation_model}),
+    \item empirical justification for the orb regime (Section~\ref{subsec:orb_justification}).
+\end{itemize}
+
+This integration yields a physically grounded, statistically coherent model capable of describing 
+unknown aerial trajectories with interpretable structure and quantifiable uncertainty.
+
+% --------------------------------
+% 2.7 Generalization Across Datasets
+% --------------------------------
+
+\subsection{Generalization Across Datasets}
+\label{subsec:generalization}
+
+A key objective of the unified framework is to provide consistent, interpretable motion-state 
+classification across heterogeneous datasets. Although different sensors yield trajectories with 
+varying resolutions, noise characteristics, and metadata completeness, the core geometric structure 
+of the model remains invariant. This section outlines the elements of the framework that generalize 
+across datasets and the adjustments required for practical application.
+
+\paragraph{Geometric Invariance of Curvature-Based Features.}
+Curvature, curvature rate, and radial structure are intrinsic properties of the trajectory and do 
+not depend on absolute position, sensor calibration, or platform-specific metadata. As a result:
+\begin{itemize}
+    \item curvature-based motion signatures are comparable across sensors,
+    \item feature extraction remains stable even when range or altitude are unknown,
+    \item local geometric patterns provide a common basis for classification.
+\end{itemize}
+
+This invariance enables coherent interpretation of motion states despite differences in imaging 
+modalities or acquisition conditions.
+
+\paragraph{Robustness to Missing Metadata.}
+Many publicly released sensor products lack complete information about focal length, gimbal 
+calibration, frame timing, or platform motion. The framework accommodates such gaps by relying on:
+\begin{itemize}
+    \item relative motion rather than absolute physical units,
+    \item smoothing and derivative estimation that operate purely on image-plane coordinates,
+    \item likelihood models built on dimensionless geometric features.
+\end{itemize}
+
+This ensures that the classifier remains functional and interpretable even when only stabilized 
+frame sequences are available, as in the PR-018 and GIMBAL datasets.
+
+\paragraph{Dataset-Specific Noise Profiles.}
+Different sensors introduce distinct noise characteristics—thermal noise in infrared imagery, 
+compression artifacts in digital video, or tracking jitter in parallax-limited sequences. The 
+observation model accommodates such variations through:
+\begin{itemize}
+    \item dataset-specific smoothing parameters,
+    \item adaptive thresholds for curvature stability,
+    \item variance-based weighting of derivative estimates.
+\end{itemize}
+
+Because the underlying geometric features are stable, only minimal adjustments to smoothing or 
+noise filtering are required for each dataset.
+
+\paragraph{State Interpretation Consistency.}
+The state definitions introduced in Section~\ref{subsec:geometry_overview} remain valid across 
+datasets. Straight, turn, hover, and orb states correspond to universal geometric regimes of 
+trajectory evolution, independent of sensor modality or environmental conditions. As a result:
+\begin{itemize}
+    \item state sequences can be compared across datasets,
+    \item posterior probabilities reflect consistent dynamical signatures,
+    \item transitions carry the same interpretive meaning regardless of sensor source.
+\end{itemize}
+
+This consistency is especially important for evaluating whether different datasets exhibit 
+qualitatively similar motion behavior.
+
+\paragraph{Application to Multi-Sensor Cases.}
+In sequences such as GIMBAL, parallax, platform rotation, and partial stabilization introduce 
+additional geometric distortions. While these distortions affect the absolute shape of the 
+trajectory, the unified framework remains applicable because:
+\begin{itemize}
+    \item the model uses local geometric features rather than global trajectory shape,
+    \item curvature and curvature rate remain informative after smoothing,
+    \item bounded-curvature regimes (orb states) manifest even under partial stabilization.
+\end{itemize}
+
+Dataset-specific corrections—such as pre-filtering or parallax compensation—can refine the 
+trajectory but are not required for the core classifier to operate.
+
+\paragraph{Summary.}
+The unified framework generalizes across datasets because it is grounded in geometric features 
+that are invariant under changes in sensor configuration, platform motion, and metadata 
+availability. This flexibility supports consistent dynamical interpretation across PR-018, GIMBAL, 
+and future datasets with similar characteristics.
+
+% --------------------------------
+% 2.8 Implications for Motion Interpretation
+% --------------------------------
+
+\subsection{Implications for Motion Interpretation}
+\label{subsec:implications}
+
+The unified framework provides a principled foundation for interpreting unknown aerial trajectories 
+strictly in terms of observable geometric and dynamical structure. By grounding the analysis in 
+curvature, state transitions, and probabilistic inference, the classifier avoids assumptions about 
+propulsion, intent, or underlying mechanisms. This section summarizes the interpretive implications 
+of the model and clarifies what conclusions may—and may not—be drawn from state sequences.
+
+\paragraph{Constraints on Kinematic Hypotheses.}
+Each motion state imposes specific geometric and dynamical constraints on feasible trajectories:
+\begin{itemize}
+    \item Straight segments ($S$) indicate persistent directional motion with minimal reorientation.
+    \item Turning segments ($T$) reflect coordinated changes in direction with sustained curvature.
+    \item Hover intervals ($H$) imply low-speed, small-displacement regimes.
+    \item Orb segments ($O$) denote smooth, bounded-curvature evolution consistent with motion 
+          around a local center.
+\end{itemize}
+
+These constraints allow researchers to evaluate which classes of kinematic models—ballistic, 
+aerodynamic, noise-driven, or otherwise—are compatible with the observed state sequence.
+
+\paragraph{Avoiding Overinterpretation.}
+The classifier is not designed to infer causality or mechanism. For example:
+\begin{itemize}
+    \item an orb segment does not imply controlled flight or intent,
+    \item a straight segment does not imply ballistic motion,
+    \item a hovering interval does not imply levitation.
+\end{itemize}
+
+Instead, the classifier describes the *form* of motion, not its *origin*. Interpretation beyond 
+kinematic structure requires additional physical information not present in image-plane trajectories.
+
+\paragraph{State Sequences as Dynamical Summaries.}
+State sequences serve as compact representations of the trajectory, enabling:
+\begin{itemize}
+    \item identification of dominant motion regimes,
+    \item segmentation of complex trajectories into interpretable units,
+    \item comparison of dynamical patterns across datasets,
+    \item localization of anomalous or transitional intervals.
+\end{itemize}
+
+Posterior probabilities further highlight periods of ambiguity or uncertainty, allowing careful 
+evaluation of borderline or noise-dominated segments.
+
+\paragraph{Comparative Analysis Across Datasets.}
+Because the states are defined geometrically, their interpretation remains consistent when applied 
+to different sensor products. A sequence classified as $O \rightarrow T \rightarrow S$ carries the 
+same dynamical meaning in PR-018 as in GIMBAL, even if the underlying sensor geometries differ. 
+This supports cross-dataset comparison and strengthens the generality of the framework.
+
+\paragraph{Limitations and Scope.}
+The unified model is intentionally conservative. It operates entirely within the observational 
+limits of image-plane trajectories and does not rely on assumptions about range, altitude, 
+propulsion, or mass. As such:
+\begin{itemize}
+    \item physical inference beyond geometry is out of scope,
+    \item energetic modeling is not attempted,
+    \item mechanistic interpretation is avoided.
+\end{itemize}
+
+The framework is therefore most valuable as a diagnostic and comparative tool, not as a complete 
+physical model of aerial motion.
+
+\paragraph{Summary.}
+The implications of the unified framework lie in its ability to provide repeatable, interpretable, 
+and dataset-agnostic descriptions of motion behavior. By separating geometric observation from 
+physical speculation, the model establishes a rigorous foundation for analyzing unknown aerial 
+trajectories and preparing them for further scientific study.

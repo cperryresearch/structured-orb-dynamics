@@ -1,0 +1,391 @@
+% ==========================================
+% Supplementary GIMBAL Analysis (Skeleton)
+% ==========================================
+
+\section{Supplementary Analysis: GIMBAL Dataset}
+\label{sec:gimbal}
+
+This supplementary section applies components of the unified motion-state framework to the 
+GIMBAL dataset, illustrating how curvature-based geometric diagnostics behave under conditions 
+where absolute trajectory reconstruction is not feasible due to platform-induced parallax and 
+missing metadata.
+
+\subsection{Dataset Characteristics and Limitations}
+\label{subsec:gimbal_characteristics}
+
+The GIMBAL dataset consists of a forward-looking infrared (FLIR) video recorded from a moving 
+aircraft platform. The video shows a bright, extended infrared source that remains near the center 
+of the field of view while the background and horizon rotate due to gimbal and platform motion. 
+As with PR018, no complete physical metadata---such as focal length, range, altitude, gimbal 
+angles, or inertial platform data---is provided in the publicly released version.
+
+Several characteristics of the GIMBAL sequence distinguish it from PR018 and introduce important 
+constraints on geometric interpretation:
+
+\begin{itemize}
+    \item \textbf{Strong platform-induced parallax:} The apparent motion of the background is 
+    dominated by the aircraft's own maneuvering and gimbal rotation, making it difficult to 
+    isolate the target's absolute motion in the image plane.
+
+    \item \textbf{Persistent target centering:} The target remains close to the center of the frame, 
+    indicating active tracking by the sensor. As a result, target displacement is largely absorbed 
+    by gimbal motion rather than appearing as a large-scale trajectory across the image.
+
+    \item \textbf{Partial stabilization and rotation:} The horizon and background features undergo 
+    rotation and deformation that reflect a combination of platform motion, gimbal adjustments, and 
+    possible zoom changes. This complicates any attempt to define a fixed image-plane reference 
+    frame.
+
+    \item \textbf{Incomplete telemetry and calibration:} Without synchronized platform, gimbal, and 
+    range data, it is not possible to reconstruct a metric three-dimensional trajectory or to 
+    separate parallax effects from intrinsic target motion.
+\end{itemize}
+
+\paragraph{Implications for Trajectory Reconstruction.}
+In PR018, approximate stabilization around the target allowed the construction of a meaningful 
+image-plane trajectory $x(t)$ suitable for curvature and state analysis. In contrast, the GIMBAL 
+sequence does not admit a unique or reliable reconstruction of the target's intrinsic motion. Any 
+attempt to infer a full trajectory would require strong assumptions about platform kinematics, 
+gimbal control laws, and range, none of which are available in the public release.
+
+As a consequence, the unified framework cannot be applied to GIMBAL in the same quantitative manner 
+as it was to PR018. Instead, the analysis is necessarily more limited and qualitative, focusing on 
+what can be inferred from:
+
+\begin{itemize}
+    \item relative orientation changes between the target and the horizon,
+    \item local apparent motion of the target within the tracked window,
+    \item structural stability of the target's image under platform rotation.
+\end{itemize}
+
+\paragraph{Scope of the Supplementary Analysis.}
+Given these constraints, the GIMBAL analysis is framed as a supplementary, qualitative application 
+of the unified motion-state framework. The goals are to:
+
+\begin{itemize}
+    \item identify which geometric cues are still accessible despite parallax and missing metadata,
+    \item assess whether these cues are consistent with the motion-state taxonomy developed in 
+          Part~II,
+    \item compare qualitative dynamical patterns with those observed in PR018,
+    \item avoid overinterpretation by explicitly acknowledging the limits of the available data.
+\end{itemize}
+
+No attempt is made to derive a full image-plane trajectory or to compute curvature with the same 
+precision used for PR018. Instead, the GIMBAL dataset serves as a stress test of the framework's 
+interpretive discipline under conditions where only partial geometric information is available.
+
+\paragraph{Conservative Interpretive Stance.}
+Throughout this supplementary analysis, the emphasis remains on descriptive geometry and 
+qualitative consistency, not on physical or mechanistic inference. The limitations of the GIMBAL 
+data are treated as a fundamental boundary on what can be responsibly concluded. Within that 
+boundary, the unified framework provides a structured language for discussing observable motion 
+patterns without exceeding the evidential content of the dataset.
+
+\subsection{Extractable Geometric Features}
+\label{subsec:gimbal_features}
+
+Although the GIMBAL dataset does not permit reconstruction of an absolute image-plane trajectory, 
+several geometric cues remain accessible and can be interpreted within the qualitative structure of 
+the unified motion-state framework. These cues arise from the residual motion of the target within 
+the tracked window, from the behavior of the horizon and background, and from the stability of the 
+target’s infrared signature under platform rotation.
+
+\paragraph{Local Apparent Motion of the Target.}
+Even though the target is actively stabilized near the center of the frame, small residual 
+displacements are visible over time. These residual motions cannot be converted into metric units 
+or reliable curvature estimates, but they do provide information about:
+\begin{itemize}
+    \item slight lateral drift within the tracking window,
+    \item transient deviations from perfect centering,
+    \item micro-adjustments made by the tracking and gimbal-control system.
+\end{itemize}
+Such motions reflect a combination of sensor behavior and relative target motion, and are treated 
+here strictly as qualitative indicators of smoothness or irregularity.
+
+\paragraph{Horizon Rotation and Background Flow.}
+The most prominent large-scale geometric feature in GIMBAL is the rotation of the horizon and 
+background. This rotation is driven primarily by platform and gimbal motion. When viewed as a 
+time-varying angle, the horizon provides:
+\begin{itemize}
+    \item a proxy for the aircraft’s maneuvering and gimbal rotation,
+    \item a reference frame for evaluating the target’s stability relative to the rotating scene,
+    \item a qualitative separation between platform-induced dynamics and target-centric motion.
+\end{itemize}
+The fact that the target remains centered during substantial horizon rotation suggests that its 
+apparent position is governed largely by the tracking system rather than by large-scale motion 
+across the field of view.
+
+\paragraph{Image Stability and Shape Consistency.}
+The target’s infrared signature retains a stable morphology throughout the sequence. This stability 
+enables limited geometric inference:
+\begin{itemize}
+    \item the absence of pronounced shape deformation argues against high-acceleration image-plane motion,
+    \item the lack of abrupt centroid jumps suggests no strong high-frequency oscillatory behavior,
+    \item coherent intensity structure indicates that residual motions are relatively smooth.
+\end{itemize}
+These observations provide qualitative evidence that whatever apparent motion exists is not 
+dominated by jitter or tracking failures.
+
+\paragraph{Relative Angular Behavior.}
+By examining the orientation of the target relative to the rotating horizon, one can extract 
+qualitative information about relative angular behavior:
+\begin{itemize}
+    \item whether the target exhibits slow drift relative to the horizon,
+    \item whether its apparent alignment changes gradually or abruptly,
+    \item whether any relative angular behavior is consistent across distinct phases of platform rotation.
+\end{itemize}
+These relative angular cues do not yield curvature or trajectory estimates but help distinguish 
+smooth, coordinated evolution from irregular or noise-driven changes.
+
+\paragraph{Limitations of Extractable Features.}
+Crucially, the available geometric cues do \emph{not} permit:
+\begin{itemize}
+    \item computation of curvature $\kappa(t)$ or curvature rate $\dot{\kappa}(t)$,
+    \item estimation of a center-of-curvature or radial profile,
+    \item recovery of absolute velocity, acceleration, or jerk,
+    \item construction of a consistent image-plane trajectory comparable to PR018.
+\end{itemize}
+For this reason, the GIMBAL analysis remains strictly qualitative. All inferences are framed in 
+terms of relative stability, smoothness, and alignment, rather than quantitative kinematic 
+measures.
+
+\paragraph{Role Within the Unified Framework.}
+Despite these limitations, the extractable features serve an important role: they allow us to 
+evaluate whether the observable behavior of the target is qualitatively compatible with the kinds 
+of smooth, persistent regimes associated with orb-like or turn-like motion in the unified 
+framework, or whether it appears inconsistent with those regimes. These cues provide the basis for 
+the qualitative state-consistency assessment in the next subsection.
+
+\subsection{Qualitative State-Consistency Assessment}
+\label{subsec:gimbal_state_consistency}
+
+Because the GIMBAL dataset does not permit extraction of a reliable image-plane trajectory, the 
+state-consistency analysis cannot rely on quantitative curvature $\kappa(t)$, curvature rate 
+$\dot{\kappa}(t)$, or finite-difference kinematic derivatives. Instead, we evaluate whether the 
+observable geometric cues identified in Section~\ref{subsec:gimbal_features} exhibit qualitative 
+patterns consistent with any of the motion-state regimes defined in the unified framework.
+
+This assessment is interpretive rather than computational, and is guided by three criteria:
+\begin{enumerate}
+    \item structural smoothness of the target’s apparent behavior,
+    \item temporal persistence or coherence across distinct intervals of the recording,
+    \item compatibility with the qualitative signatures of the Straight, Turn, Hover, and Orb states.
+\end{enumerate}
+The goal is not to assign a discrete state sequence, but to evaluate whether any observable 
+behaviors contradict or align with the taxonomy developed in Part~II.
+
+\paragraph{Straight-State Consistency.}
+A motion would be \emph{qualitatively straight-like} if the target exhibited:
+\begin{itemize}
+    \item minimal displacement within the field of view,
+    \item negligible relative drift against the rotating horizon,
+    \item image stability with no indication of curvature-driven lateral motion.
+\end{itemize}
+GIMBAL does show periods of limited displacement, but these coincide with active sensor tracking 
+and cannot be interpreted as evidence of straight-line intrinsic motion. No inconsistencies with a 
+straight-state pattern are observed, but no affirmative geometric evidence supports it either.
+
+\paragraph{Turn-State Consistency.}
+A qualitative turn-like regime would require:
+\begin{itemize}
+    \item consistent lateral displacement relative to a background reference,
+    \item monotonic angular change or persistent deviation from straight-like behavior,
+    \item residual motion incompatible with pure stabilization.
+\end{itemize}
+Because horizon rotation is dominated by platform motion, the dataset does not present reliable 
+turn-like cues. No geometric feature in GIMBAL contradicts a turn-like interpretation, but none 
+provides positive support for one.
+
+\paragraph{Hover-State Consistency.}
+Hover-like behavior would include:
+\begin{itemize}
+    \item minimal intrinsic displacement,
+    \item absence of systematic drift,
+    \item frame-to-frame stability suggestive of low-speed or stationary dynamics.
+\end{itemize}
+The target’s near-centering and morphological stability could appear hover-like, but these are 
+fully attributable to the sensor tracking system. Thus, hover-like patterns are \emph{not} ruled 
+out, but cannot be meaningfully inferred.
+
+\paragraph{Orb-State Consistency.}
+The orb state is characterized by smoothly evolving curvature and persistence of dynamical regime 
+beyond classical aerodynamic expectations. Qualitatively, this would manifest as:
+\begin{itemize}
+    \item smooth, coordinated evolution relative to a rotating reference frame,
+    \item absence of ballistic straight-like segments,
+    \item no abrupt kinematic transitions or discontinuities.
+\end{itemize}
+Although curvature cannot be computed for GIMBAL, two observable behaviors are noteworthy:
+\begin{enumerate}
+    \item the target’s apparent motion (to the extent it is visible) shows no abrupt jumps,
+    \item its morphological stability persists during substantial platform-induced rotation.
+\end{enumerate}
+These observations are \emph{consistent} with smooth evolution, but they do not distinguish between 
+hover-like, turn-like, or orb-like regimes. The dataset lacks the geometric resolution needed to 
+affirm or reject orb-state behavior.
+
+\paragraph{Synthesis.}
+Across all four states, we find:
+\begin{itemize}
+    \item no observable behavior that contradicts any state class outright,
+    \item insufficient geometric information to positively support any single state,
+    \item qualitative compatibility with multiple regimes due to the dominance of parallax and tracking.
+\end{itemize}
+Thus, the appropriate conclusion is one of disciplined uncertainty:  
+\textit{the GIMBAL dataset does not provide enough geometric information to determine which motion 
+state, if any, the target occupies}.  
+This stands in contrast to PR018, where curvature-based analysis enabled quantitative state 
+assignment.
+
+The qualitative consistency analysis therefore reinforces the conservative stance taken throughout 
+this supplement: the GIMBAL sequence lacks the evidential content required for state classification 
+but remains fully interpretable within the unified motion-state framework.
+
+\subsection{Comparison With PR018 Results}
+\label{subsec:gimbal_comparison}
+
+A central purpose of this supplementary analysis is to clarify how the qualitative cues observable 
+in the GIMBAL dataset relate to the quantitative curvature-based results obtained from PR018. 
+Because the two datasets differ fundamentally in the availability of stabilization, parallax 
+conditions, and metadata, any comparison must explicitly separate \emph{what is comparable} from 
+\emph{what is not}.
+
+\paragraph{Differences in Data Structure.}
+PR018 provides:
+\begin{itemize}
+    \item a stable, target-centered field of view,
+    \item sufficient residual motion to reconstruct a 2D image-plane trajectory,
+    \item conditions enabling computation of curvature, curvature rate, and finite-difference 
+          kinematic derivatives.
+\end{itemize}
+By contrast, GIMBAL provides:
+\begin{itemize}
+    \item strong parallax dominated by platform and gimbal motion,
+    \item tracking behavior that suppresses visible target displacement,
+    \item no reliable reference frame for trajectory reconstruction.
+\end{itemize}
+As a result, the unified framework can be \emph{applied quantitatively} to PR018, but only 
+\emph{qualitatively} to GIMBAL.
+
+\paragraph{Comparability of Motion-State Signatures.}
+The motion-state analysis in PR018 was driven by curvature signatures, state-likelihood evaluation, 
+and posterior temporal structure. None of these quantities can be computed for GIMBAL. Therefore:
+\begin{itemize}
+    \item no direct comparison of curvature $\kappa(t)$ or curvature continuity can be made,
+    \item no state-probability sequence can be constructed for GIMBAL,
+    \item no dynamical inferences (straight, turn, hover, orb) can be quantitatively aligned.
+\end{itemize}
+The two datasets are therefore \emph{not comparable at the level of dynamical-state inference}.
+
+\paragraph{Comparability of Qualitative Behaviors.}
+Even without a trajectory, certain qualitative behaviors can still be contrasted. We highlight three 
+points of relevance:
+
+\begin{enumerate}
+    \item \textbf{Smoothness vs. discontinuity.}  
+    PR018 exhibited smooth curvature evolution with no surviving straight-line segments after 
+    stabilization. GIMBAL shows no abrupt centroid jumps or discontinuous behavior, but this 
+    smoothness may arise solely from active tracking.
+
+    \item \textbf{Persistence of geometric structure.}  
+    In PR018, the orb-like regime persisted across hundreds of frames and was supported by 
+    quantitative diagnostics. In GIMBAL, the target’s morphological stability is persistent but 
+    does not reflect intrinsic motion.
+
+    \item \textbf{Relative-frame behavior.}  
+    PR018 provided a stable image-plane frame that reflected target motion. In GIMBAL, the 
+    rotating horizon dominates the frame, preventing any equivalence in geometric interpretation.
+\end{enumerate}
+
+While some qualitative superficial similarities exist—such as stable centroid structure and absence 
+of jitter—they do not imply dynamical similarity.
+
+\paragraph{Constraints on Physical Interpretation.}
+In PR018, the unified framework permitted elimination of several physical categories due to the 
+observed curvature behavior (e.g., no ballistic segments). No such eliminations are possible for 
+GIMBAL. Specifically:
+\begin{itemize}
+    \item GIMBAL cannot rule out straight, turn, hover, or orb-like regimes,
+    \item GIMBAL cannot constrain acceleration or curvature profiles,
+    \item GIMBAL cannot be used to evaluate dynamical feasibility of hypotheses.
+\end{itemize}
+This distinction is crucial for scientific rigor: the evidential strength of the two datasets is 
+fundamentally unequal.
+
+\paragraph{Synthesis and Interpretation.}
+The comparison yields three disciplined conclusions:
+
+\begin{enumerate}
+    \item \textbf{PR018 and GIMBAL cannot be treated as equivalent for motion-state analysis.}  
+    Only PR018 offers the necessary geometric observables for quantitative classification.
+
+    \item \textbf{Qualitative cues in GIMBAL do not contradict the unified framework.}  
+    GIMBAL shows no behavior incompatible with smooth or persistent regimes, but this carries no 
+    dynamical weight.
+
+    \item \textbf{GIMBAL provides a test of interpretive discipline rather than motion inference.}  
+    Its value lies in confirming that the unified framework maintains methodological restraint in 
+    the presence of incomplete data.
+\end{enumerate}
+
+Thus, while PR018 supports a quantitative demonstration of the unified motion-state model, the 
+GIMBAL dataset serves as a complementary case illustrating how the framework operates under strong 
+observational constraints without exceeding the evidential content of the data.
+
+\subsection{Summary of GIMBAL Supplement}
+\label{subsec:gimbal_summary}
+
+The GIMBAL dataset provides a valuable but fundamentally limited test case for the unified 
+motion-state framework. Unlike PR018, where approximate stabilization and sufficient residual 
+motion enabled quantitative curvature analysis, the GIMBAL sequence is dominated by 
+platform-induced parallax, active tracking behavior, and a lack of supporting telemetry. These 
+conditions preclude reconstruction of an image-plane trajectory and prevent computation of 
+curvature, curvature rate, or state-likelihood estimates.
+
+Despite these constraints, several meaningful conclusions emerge from the qualitative analysis:
+
+\paragraph{1. Geometric cues are available but non-quantitative.}
+Features such as horizon rotation, target morphological stability, and small residual centroid 
+motions provide limited geometric insight. However, these cues cannot be used to infer intrinsic 
+target motion, and no dynamical quantities can be estimated.
+
+\paragraph{2. No state classification is possible.}
+Because curvature-based diagnostics cannot be computed, none of the four motion states 
+(straight, turn, hover, orb) can be positively identified or excluded.  
+The dataset is consistent with all regimes but affirmatively supports none.
+
+\paragraph{3. Qualitative behaviors do not contradict the unified framework.}
+The observable properties of the GIMBAL target—morphological stability, lack of jitter, smooth 
+appearance relative to a rotating frame—are compatible with the conceptual structure of the 
+framework. Crucially, this compatibility arises from insufficient data rather than evidence of 
+smooth or persistent motion.
+
+\paragraph{4. Comparison with PR018 highlights a contrast in evidential strength.}
+PR018 provides direct geometric observables enabling quantitative state inference and elimination 
+of incompatible physical models.  
+GIMBAL does not.  
+This contrast illustrates the importance of dataset structure in motion-state classification.
+
+\paragraph{5. The supplement demonstrates interpretive discipline.}
+A central contribution of the unified motion-state framework is its insistence on proportional 
+inference: conclusions must scale with the quantity and reliability of available geometric data.  
+The GIMBAL supplement shows that the framework remains fully applicable—but appropriately 
+restrained—even when only partial information is accessible.
+
+\paragraph{Overall Synthesis.}
+The GIMBAL dataset does not support quantitative dynamical modeling or state assignment, but it 
+plays an important complementary role in the manuscript:
+
+\begin{itemize}
+    \item it tests the unified framework’s ability to operate under severe observational constraints,
+    \item it highlights the methodological distinction between geometric visibility and interpretive certainty,
+    \item it reinforces the evidential strength of the PR018 analysis by contrast,
+    \item it establishes clear scientific boundaries that prevent over interpretation.
+\end{itemize}
+
+In this sense, the supplementary analysis satisfies a critical epistemic function:  
+\emph{it demonstrates that the unified motion-state framework is robust not only when data are 
+rich but also when they are incomplete—while maintaining fidelity to the principles of 
+quantitative geometry and conservative inference.}
+
+

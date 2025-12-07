@@ -1,0 +1,74 @@
+% ============================
+% PART I — MODEL AND DATA
+% ============================
+
+\section{Orb Motion Classifier: Dynamical Motion-State Model}
+\label{sec:orb-motion-classifier}
+
+\section{Introduction}
+
+Publicly released infrared recordings of unidentified aerial phenomena (UAP) provide a rare 
+opportunity to study motion under conditions where physical metadata, calibration information, and 
+platform telemetry are incomplete or unavailable. Although such datasets are limited, they still 
+contain observable geometric structure that can be analyzed without relying on assumptions about 
+the underlying mechanism or intent of the object.
+
+The aim of this work is to develop a clear and reproducible framework for describing aerial motion 
+using only the information that can be reliably extracted from image-plane data. The focus is not 
+on classification in the traditional sense, nor on proposing physical explanations, but on building 
+a structured way to document how an object's apparent motion evolves over time.
+
+Our approach integrates three components:
+\begin{enumerate}
+    \item trajectory reconstruction from stabilized infrared footage,
+    \item curvature-based geometric diagnostics of local motion,
+    \item a discrete motion-state model that organizes observed behavior into simple patterns.
+\end{enumerate}
+Together, these elements form a unified framework that allows motion to be described in terms of 
+observable kinematic structure rather than speculative interpretation.
+
+The PR018 infrared video serves as the primary case study because it contains enough stabilization 
+around the target to permit construction of an approximate image-plane trajectory. This makes it 
+possible to estimate curvature, examine how curvature evolves, and evaluate which types of motion 
+are compatible with the observed behavior.
+
+To illustrate the limits of the method, a supplementary analysis is applied to the GIMBAL dataset. 
+Because strong parallax and missing metadata prevent trajectory reconstruction, the GIMBAL analysis 
+is necessarily qualitative and conservative. This contrast highlights the conditions under which the 
+framework can and cannot be applied.
+
+Throughout the manuscript, the emphasis is on transparency, reproducibility, and proportional 
+inference. The framework is intentionally simple and geometric, designed to describe motion in a 
+way that remains valid even when only partial information is available. No claims are made about 
+what the object is, how it is propelled, or whether it corresponds to any particular physical model. 
+The goal is to provide a consistent language for discussing observable motion in datasets where 
+traditional physical inference is not possible.
+
+By presenting the methodology alongside both a quantitative case (PR018) and a constrained, 
+qualitative case (GIMBAL), the manuscript aims to show how careful, geometry-based analysis can help 
+clarify what can—and cannot—be extracted from limited infrared recordings.
+
+In this section we introduce the formal dynamical motion-state model that underpins the Orb Motion Classifier. We first define the reconstructed trajectory and associated kinematic quantities, then specify the discrete motion states, the per-state likelihood model, and the temporal smoothing structure.
+
+\subsection{Video Products}
+\label{subsec:video_products}
+
+The PR-018 dataset consists of a stabilized infrared video recorded by a Department of Defense
+platform and released as part of the UAP Task Force materials (2020). The video contains 
+approximately 2{,}781 frames of mid-wave infrared imagery with an estimated frame rate of 
+$\sim$30\,Hz. The exact sensor aperture, focal length, and field-of-view parameters have not been 
+publicly released; however, the imagery exhibits the characteristic contrast profile of MWIR 
+point-source tracking. The video appears to be cropped around the target, and no ancillary 
+telemetry—such as range, platform altitude, or gimbal angles—has been provided.
+
+Due to missing metadata, certain parameters (e.g., exact frame rate, zoom level, and sensor 
+stabilization characteristics) are inferred indirectly from frame timing and visual inspection. 
+Where uncertainties exist, we report conservative estimates and emphasize the assumptions used in 
+trajectory reconstruction.
+
+% (Continue any remaining Part I sections here, such as trajectory reconstruction, 
+% curvature estimation details, classifier outputs, figures, etc.)
+
+% ============================
+% END OF PART I
+% ============================
