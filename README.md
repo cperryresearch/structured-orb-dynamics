@@ -1,14 +1,16 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17839162.svg)](https://doi.org/10.5281/zenodo.17839162)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17839414.svg)](https://doi.org/10.5281/zenodo.17839414)
 
-Structured Orb Dynamics:
+Structured Orb Dynamics
 
 Unified Manuscript and Data Repository
 
 This repo collects the materials used in the study.
+
 The manuscript, code, and the PR018 analysis are kept together so the workflow is easy to follow.
 
 The project looks at image-plane motion using a set of simple geometric tools.
+
 Curvature, basic derivative estimates, and a small state model were used to summarize the motion seen in a stabilized infrared recording (PR018).
 No physical model is assumed; everything is based on what can be measured directly in the frames.
 
