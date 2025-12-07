@@ -1,0 +1,73 @@
+% ======================================
+% MAIN MANUSCRIPT STRUCTURE (CLEANED)
+% ======================================
+
+\documentclass[11pt]{article}
+\input{preamble}
+
+\begin{document}
+
+\title{Structured Orb Dynamics:\\ Unified Manuscript and Data Repository}
+\author{Cassandra Perry}
+\date{\today}
+
+\maketitle
+
+\begin{abstract}
+This manuscript develops a unified geometric framework for interpreting unknown aerial motion using only observable trajectory structure. The approach combines stabilized image-plane reconstruction, curvature-based analysis, and a discrete motion-state model to describe how an object’s motion evolves over time, independent of sensor metadata or assumed physical mechanisms.
+
+The framework links curvature, its temporal behavior, and associated kinematic features to four interpretable motion states—straight, turn, hover, and orb. These states are supported by a likelihood model that evaluates geometric consistency frame by frame while maintaining temporal coherence through a minimal set of transition assumptions. The result is a classifier that summarizes motion behavior in a way that is reproducible, dataset-agnostic, and grounded entirely in observable quantities.
+
+Applied to publicly released infrared datasets such as PR-018, the method identifies sustained, smoothly varying curvature regimes that are not well described by classical motion categories alone. The model does not infer intent or mechanism; instead, it provides a transparent description of the motion’s geometric organization and the transitions between distinct dynamical regimes.
+
+This framework offers a consistent basis for comparing trajectories across heterogeneous datasets and establishes a clear path for future work in geometric motion analysis where traditional metadata is incomplete or unavailable.
+\end{abstract}
+
+\tableofcontents
+\clearpage
+
+% ======================================
+% PART I – INSTRUMENTATION & PIPELINE
+% ======================================
+
+\section*{Part I: Instrumentation and Reconstruction Pipeline}
+\addcontentsline{toc}{section}{Part I: Instrumentation and Reconstruction Pipeline}
+\input{manuscripts/Part_I_Instrumentation_Model/part1}
+
+\clearpage
+
+% ======================================
+% PART II – THEORETICAL FRAMEWORK
+% ======================================
+
+\section*{Part II: Theoretical Framework}
+\addcontentsline{toc}{section}{Part II: Theoretical Framework}
+\label{sec:part2_intro}
+\input{manuscripts/Part_II_Structured_Orb_System/part2}
+
+\clearpage
+
+% ======================================
+% PART III – PR018 DEEP ANALYSIS
+% ======================================
+
+\section*{Part III: PR018 Deep Analysis}
+\addcontentsline{toc}{section}{Part III: PR018 Deep Analysis}
+\input{manuscripts/Part_III_PR018_Deep_Analysis/part3}
+
+\clearpage
+
+% ======================================
+% PART IV – SUPPLEMENTARY GIMBAL ANALYSIS
+% ======================================
+
+\section*{Part IV: Supplementary GIMBAL Analysis}
+\addcontentsline{toc}{section}{Part IV: Supplementary GIMBAL Analysis}
+\input{manuscripts/Supplementary_GIMBAL_Analysis/gimbal}
+
+\clearpage
+
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
+\end{document}
