@@ -57,3 +57,6 @@ If this work is used, please cite:
 
 Perry, C. (2025).  Structured Orb Dynamics: Unified Manuscript and Data Repository (v1.1.0).  
 Zenodo. https://doi.org/10.5281/zenodo.17852764
+You may also cite the concept DOI if referring to the full version history:
+Concept DOI: https://doi.org/10.5281/zenodo.178467867
+
