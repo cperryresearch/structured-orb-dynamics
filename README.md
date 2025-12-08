@@ -55,10 +55,20 @@ No trajectory, no curvature estimates, no state sequence.
 
 If this work is used, please cite:
 
-Perry, C. (2025).  Structured Orb Dynamics: Unified Manuscript and Data Repository (v1.1.0).  
+Perry, C. (2025). Structured Orb Dynamics: Unified Manuscript and Data Repository (v1.1.0).
 Zenodo. https://doi.org/10.5281/zenodo.17852764
-
 
 You may also cite the concept DOI if referring to the full version history:
 Concept DOI: https://doi.org/10.5281/zenodo.178467867
 
+#### BibTeX
+
+```bibtex
+@misc{perry2025_structured_orb_dynamics_v110,
+  author       = {Perry, Cassandra},
+  title        = {Structured Orb Dynamics: Unified Manuscript and Data Repository (v1.1.0)},
+  year         = {2025},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.17852764},
+  url          = {https://doi.org/10.5281/zenodo.17852764}
+}
