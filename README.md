@@ -1,17 +1,27 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17852764.svg)](https://doi.org/10.5281/zenodo.17852764)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17856369.svg)](https://doi.org/10.5281/zenodo.17856369)
 [![Concept DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.178467867.svg)](https://doi.org/10.5281/zenodo.178467867)
 
-### Structured Orb Dynamics  
-Unified Manuscript and Data Repository
+# Structured Orb Dynamics  
+Unified Manuscript and Data Repository (v1.2.0)
 
-This repo collects the materials used in the study.  
-The manuscript, code, and the PR018 analysis are kept together so the workflow is easy to follow.
+This repository collects the materials used in the study.  
+The manuscript, code, and PR018 analysis are kept together so the workflow is easy to follow.
 
 The project looks at image-plane motion using a set of simple geometric tools.  
-Curvature, basic derivative estimates, and a small state model were used to summarize the motion seen in a stabilized infrared recording (PR018).  
+Curvature, basic derivative estimates, and a small state model are used to summarize the motion seen in a stabilized infrared recording (PR018).  
 No physical model is assumed; everything is based on what can be measured directly in the frames.
 
-Install the usual Python packages (numpy, scipy, matplotlib). Nothing special is required.
+Install the usual Python packages (`numpy`, `scipy`, `matplotlib`). Nothing special is required.
+
+## Downloads (v1.2.0)
+
+Unified Manuscript (PDF):  
+https://zenodo.org/records/17856369/files/Structured_Orb_Dynamics___Unified_Manuscript___Data_Repository.pdf  
+
+Full Repository Snapshot (ZIP):  
+https://zenodo.org/records/17856369/files/Structured_Orb_Dynamics___Unified_Manuscript___Data_Repository.zip  
+
+---
 
 ### Repository Layout
 
@@ -55,20 +65,19 @@ No trajectory, no curvature estimates, no state sequence.
 
 If this work is used, please cite:
 
-Perry, C. (2025). Structured Orb Dynamics: Unified Manuscript and Data Repository (v1.1.0).
-Zenodo. https://doi.org/10.5281/zenodo.17852764
+Perry, C. (2025). Structured Orb Dynamics: Unified Manuscript and Data Repository (v1.2.0).
+Zenodo. https://doi.org/10.5281/zenodo.17856369
 
 You may also cite the concept DOI if referring to the full version history:
 Concept DOI: https://doi.org/10.5281/zenodo.178467867
 
 #### BibTeX
 
-```bibtex
-@misc{perry2025_structured_orb_dynamics_v110,
+@misc{perry2025_structured_orb_dynamics_v120,
   author       = {Perry, Cassandra},
-  title        = {Structured Orb Dynamics: Unified Manuscript and Data Repository (v1.1.0)},
+  title        = {Structured Orb Dynamics: Unified Manuscript and Data Repository (v1.2.0)},
   year         = {2025},
   publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.17852764},
-  url          = {https://doi.org/10.5281/zenodo.17852764}
+  doi          = {10.5281/zenodo.17856369},
+  url          = {https://doi.org/10.5281/zenodo.17856369}
 }
