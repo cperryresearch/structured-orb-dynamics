@@ -1,5 +1,5 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17839162.svg)](https://doi.org/10.5281/zenodo.17839162)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17839414.svg)](https://doi.org/10.5281/zenodo.17839414)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17852764.svg)](https://doi.org/10.5281/zenodo.17852764)
+[![Concept DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.178467867.svg)](https://doi.org/10.5281/zenodo.178467867)
 
 ### Structured Orb Dynamics  
 Unified Manuscript and Data Repository
