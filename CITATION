@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this repository, data products, or classifier implementation, please cite the following work."
+title: "Structured Orb Dynamics: Unified Framework, Classifier, and Data Repository"
+doi: "10.5281/zenodo.17839162"
+version: "1.0.0"
+date-released: "2025-12-07"
+
+authors:
+  - family-names: "Perry"
+    given-names: "Cassandra"
+    orcid: "https://orcid.org/0000-0000-0000-0000"   # ← optional, remove if you prefer
+
+keywords:
+  - motion-state modeling
+  - trajectory reconstruction
+  - curvature analysis
+  - UAP datasets
+  - state-space models
+  - geometric motion analysis
+  - PR-018
+  - GIMBAL
+  - orb motion classifier
+
+license: "MIT"
+
+repository-code: "https://github.com/cperryresearch/structured-orb-dynamics"
+
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Perry"
+      given-names: "Cassandra"
+  title: "Structured Orb Dynamics: Unified Framework, Classifier, and Data Repository"
+  year: 2025
+  doi: "10.5281/zenodo.17839162"
+  publisher: "Zenodo"
+  version: "1.0.0"
