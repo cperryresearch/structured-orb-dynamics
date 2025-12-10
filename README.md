@@ -98,3 +98,28 @@ https://doi.org/10.5281/zenodo.178467867
   publisher    = {Zenodo},  
   url          = {https://doi.org/10.5281/zenodo.17856369}  
 }
+
+## Community & Contributions
+
+Structured Orb Dynamics welcomes clear, reproducible, and geometry-focused contributions.  
+If you would like to participate, please read the project’s contribution guidelines:
+
+➡️ **See: [CONTRIBUTING.md](CONTRIBUTING.md)**
+
+### What kinds of contributions are encouraged?
+
+- Reproducibility checks for figures or classifier outputs  
+- Improvements in clarity of definitions, notation, or documentation  
+- Small refinements that enhance determinism or transparency  
+- Well-reasoned, scope-aligned discussions about geometric inference  
+
+### What is outside the scope?
+
+- Physical speculation (range, speed, size, intent, etc.)  
+- Platform or sensor calibration  
+- Claims about object identity or nature  
+- Non-deterministic code changes  
+
+Pinned Issue #1 gives a concise overview of project scope and engagement expectations.
+
+We appreciate contributions that uphold clarity, reproducibility, and rigor.
