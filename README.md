@@ -95,11 +95,11 @@ https://doi.org/10.5281/zenodo.17846786
 
 ### BibTeX
 @misc{perry2025_structured_orb_dynamics_v120,
-  author       = {Perry, Cassandra},
-  title        = {Structured Orb Dynamics: Unified Manuscript and Data Repository (v1.2.0)},
-  year         = {2025},
-  doi          = {10.5281/zenodo.17856369},
-  publisher    = {Zenodo},
-  url          = {https://doi.org/10.5281/zenodo.17856369}
+  author    = {Perry, Cassandra},
+  title     = {Structured Orb Dynamics: Unified Manuscript and Data Repository (v1.2.0)},
+  year      = {2025},
+  doi       = {10.5281/zenodo.17904630},
+  url       = {https://doi.org/10.5281/zenodo.17904630},
+  publisher = {Zenodo}
 }
 
