@@ -17,10 +17,10 @@ A standard scientific Python stack is sufficient (numpy, scipy, matplotlib).
 ## Downloads (v1.2.0)
 
 Unified Manuscript (PDF):  
-https://zenodo.org/records/17856369/files/Structured_Orb_Dynamics___Unified_Manuscript___Data_Repository.pdf
+https://zenodo.org/records/17904630/files/Structured_Orb_Dynamics___Unified_Manuscript___Data_Repository.pdf
 
 Full Repository Snapshot (ZIP):  
-https://zenodo.org/records/17856369/files/Structured_Orb_Dynamics___Unified_Manuscript___Data_Repository.zip
+https://zenodo.org/records/17904630/files/Structured_Orb_Dynamics___Unified_Manuscript___Data_Repository.zip
 
 ---
 
