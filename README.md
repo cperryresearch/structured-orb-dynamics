@@ -37,6 +37,7 @@ Running the scripts will regenerate the feature series and the plots.
 Paths may need adjustment depending on the environment.
 
 Example:
+
 python tracking/run_tracking.py  
 python features/compute_features.py  
 python model/run_state_model.py
