@@ -1,0 +1,144 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\setcounter{secnumdepth}{2}
+\setlength{\parskip}{0.5em}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{3cm}
+
+    {\LARGE A Geometry-First Approach to Motion Analysis\par}
+    \vspace{0.5cm}
+    {\Large Under Data Constraints\par}
+
+    \vspace{2cm}
+
+    {\large Cassandra Perry\par}
+    \vspace{0.25cm}
+    {\small Independent Research Initiative\par}
+    {\small Enid, Oklahoma, United States\par}
+
+    \vspace{2cm}
+
+    {\small \today\par}
+
+    \vfill
+
+    {\small This manuscript presents a descriptive, geometry-first framework for motion analysis\\
+    under data constraints, emphasizing methodological discipline, reproducibility,\\
+    and explicit limitation of scope.}
+
+\end{titlepage}
+
+\section{Introduction}
+
+Motion analysis often begins with modeling choices, such as selecting architectures, defining prediction targets, or tuning parameters. However, many real-world datasets are constrained by limited resolution, incomplete metadata, unknown sensor characteristics, or the absence of ground truth labels. In such settings, complex models can amplify assumptions rather than clarify observed behavior.
+
+This manuscript examines a geometry-first approach to motion analysis, in which simple geometric descriptors are used as an initial lens for reasoning about motion. Rather than attempting to infer causes or make predictive claims, this approach focuses on describing observable motion using interpretable features such as curvature, directional change, and state transitions. Geometry is treated not as a replacement for statistical or learning-based methods, but as a preliminary framework for structuring analysis when data quality or availability is limited.
+
+The emphasis throughout is on methodological clarity, reproducibility, and falsifiability. All concepts discussed are grounded in observable quantities and are intended to be applicable across domains where motion must be analyzed under constraint.
+
+\section{Assumptions and Scope}
+
+The geometry-first framework presented in this manuscript operates under a deliberately limited and explicit set of assumptions. Motion is represented as a sequence of observed positional measurements over time, which may be incomplete, noisy, or affected by projection effects. All analysis is confined to geometric properties that can be directly derived from these observations without auxiliary inference.
+
+No assumptions are made regarding physical causation, intent, agency, or underlying dynamical mechanisms. Absolute scale, depth, force, and velocity are not presumed to be known unless explicitly provided by the data. Descriptors such as curvature are treated as measurable properties of observed trajectories, not as indicators of explanation or prediction.
+
+Discrete motion states are defined operationally, based on observable geometric criteria and analyst-specified thresholds. These states are not assumed to correspond to intrinsic properties of the system being observed. State definitions and transition criteria are therefore considered provisional and subject to revision as data quality, preprocessing choices, or analytical goals change.
+
+The scope of this framework is intentionally descriptive and organizational. Its purpose is to structure observation, support reproducibility, and make analytical assumptions visible. It is not intended to recover hidden variables, infer causal structure, or produce predictive models. Any extension beyond descriptive geometry requires additional information and assumptions that lie outside the scope of this work.
+
+\section{Motion Analysis Under Data Constraints}
+
+Motion analysis is often treated as a modeling problem, with emphasis placed on prediction, classification accuracy, or inference of latent variables. This framing implicitly assumes the availability of sufficiently rich data: well-characterized sensors, consistent resolution, reliable timestamps, and, in many cases, labeled ground truth. In practice, these assumptions frequently do not hold.
+
+Many real-world motion datasets are constrained by one or more of the following limitations: incomplete or missing metadata, unknown sensor properties, low spatial or temporal resolution, compression artifacts, or partial observation of the underlying system. Under such conditions, analytical choices made early in a pipeline can dominate outcomes, not because they are supported by the data, but because the data cannot meaningfully constrain them.
+
+When data quality is limited, increasing model complexity does not necessarily increase insight. Instead, complex models may encode untestable assumptions, obscure failure modes, or produce outputs that are difficult to interpret or falsify. This risk is especially pronounced when working with motion data derived from single-view imagery or image-plane trajectories, where depth, scale, and absolute kinematics may be indeterminate.
+
+A constraint-aware approach to motion analysis begins by explicitly acknowledging these limitations and prioritizing descriptive analysis over inference. Rather than attempting to recover hidden variables or predict future behavior, the goal is to characterize observable motion in a way that is transparent, reproducible, and minimally assumption-laden. This shift in emphasis reframes motion analysis as a problem of representation and structure, rather than optimization.
+
+In this context, geometry provides a natural analytical starting point. Geometric descriptors operate directly on observed trajectories and require fewer assumptions about the underlying system. By focusing on what can be measured and verified—such as changes in direction, curvature, and continuity—geometry-first methods help constrain interpretation and establish a stable foundation for further analysis.
+
+\section{Geometry as a Descriptive First Lens}
+
+When approaching motion analysis under data constraints, the choice of analytical lens becomes especially consequential. Geometry offers a descriptive framework that operates directly on observable quantities, without requiring assumptions about the underlying physical system, causal mechanisms, or future behavior. For this reason, it is well suited as an initial stage of analysis when data quality or completeness is limited.
+
+A geometry-first approach treats motion as a sequence of spatial relationships evolving over time. Rather than attempting to infer hidden variables or optimize predictive performance, the focus is placed on how motion is expressed in the observed data: changes in direction, continuity, and geometric structure. These properties are present regardless of domain and can be examined without committing to a specific explanatory model.
+
+Importantly, geometry in this context is not used to impose structure, but to reveal it. By examining trajectories in the image plane or coordinate space as geometric objects, patterns such as smoothness, abrupt transitions, or sustained directional changes can be identified and described. This descriptive emphasis allows analysts to characterize motion behavior while remaining agnostic about its cause.
+
+Using geometry as a first analytical lens also supports interpretability. Geometric descriptors are inherently visualizable and can be inspected directly, making it easier to identify failure modes, artifacts, or ambiguities in the data. This transparency is especially valuable when working with constrained datasets, where over-interpretation poses a significant risk.
+
+Crucially, a geometry-first approach does not preclude the use of statistical or learning-based methods. Instead, it establishes a structured foundation upon which such methods may later be applied, should the data support them. By prioritizing description over inference at the outset, geometry-first analysis helps ensure that subsequent modeling choices are informed by the observable structure of the data rather than by unexamined assumptions.
+
+\section{Curvature and Directional Change}
+
+Among geometric descriptors of motion, curvature provides a direct and interpretable measure of how a trajectory changes direction over time. At its simplest, curvature descriptively characterizes the degree to which motion deviates from a straight path, independent of speed, scale, or underlying cause. Because it can be computed directly from observed trajectories, curvature is well suited for descriptive analysis under data constraints.
+
+In motion analysis, straight-line movement corresponds to low or near-zero curvature, while sustained turning behavior produces elevated curvature values. Abrupt changes in direction are reflected as localized curvature spikes. These patterns arise from the geometry of the trajectory itself and do not require assumptions about the forces, intent, or mechanisms that produced the motion.
+
+Importantly, curvature is a local property. It can be evaluated pointwise along a trajectory, allowing analysts to examine how directional behavior evolves over time. This locality makes curvature particularly useful for identifying transitions in motion behavior, such as shifts from straight movement to turning, or from smooth trajectories to irregular paths.
+
+Because curvature is derived solely from positional information, it remains applicable even when absolute scale, depth, or velocity are unknown or unreliable. This makes it especially valuable in image-plane analyses or other settings where only relative motion can be observed. While curvature alone does not explain why motion occurs, it provides a stable, reproducible description of how motion unfolds geometrically.
+
+Within a geometry-first framework, curvature serves as a foundational descriptor rather than a conclusion. Its role is not to classify motion definitively, but to structure observation and guide further analysis. When used in this way, curvature can support the identification of motion regimes, inform the construction of discrete state models, or highlight segments of interest for subsequent modeling, should the data support such steps.
+
+\section{Discrete Motion States}
+
+Discrete motion states provide a structured way to describe motion behavior without imposing causal interpretation or predictive intent. Within a geometry-first framework, motion states are not assumed to represent physical mechanisms or underlying dynamics. Instead, they serve as descriptive categories that summarize observable geometric patterns in a trajectory.
+
+A discrete state formulation partitions continuous motion into segments characterized by shared geometric properties. For example, sustained low-curvature segments may be described as approximately straight motion, while intervals of elevated curvature correspond to turning behavior. Periods of minimal displacement or highly irregular motion may be described as stationary or indeterminate states, depending on the context and data quality. These states are defined operationally, based on measurable criteria, rather than inferred intent.
+
+The use of discrete states introduces structure while preserving falsifiability. Because state definitions are explicit, they can be adjusted, tested, or rejected based on how well they align with observed data. Importantly, this structure does not require assumptions about continuity, smoothness, or optimality beyond what is directly supported by the measurements.
+
+Discrete state representations are particularly valuable when analyzing motion under uncertainty. They allow analysts to reason about changes in behavior without relying on precise estimates of velocity, acceleration, or force. Instead, attention is focused on transitions between states—such as the onset of turning, the cessation of motion, or shifts in directional stability—which are often more robustly observable than continuous derivatives.
+
+Within this framework, state transitions are treated as descriptive events rather than explanatory ones. Their role is to organize observation, highlight regions of interest, and support reproducible segmentation of motion data. When used carefully, discrete motion states can form a bridge between raw geometric descriptors and higher-level analysis, while maintaining transparency and methodological discipline.
+
+\section{Reproducibility and Methodological Discipline}
+
+Reproducibility is a foundational requirement for methodological integrity, particularly when analyzing motion under uncertainty. In geometry-first approaches, reproducibility is not achieved through model convergence or performance metrics, but through explicit definitions, transparent procedures, and observable criteria. Every analytical choice must be inspectable, adjustable, and capable of being independently replicated.
+
+Methodological discipline begins with making assumptions explicit. Thresholds for curvature, criteria for state segmentation, and definitions of transition events are not treated as inherent truths, but as operational parameters. By stating these parameters clearly, the analysis remains falsifiable: alternative thresholds can be tested, state definitions can be revised, and resulting changes in interpretation can be examined directly.
+
+This explicitness serves two critical purposes. First, it prevents analytical outcomes from being implicitly shaped by unexamined design choices. Second, it allows the same framework to be applied across datasets with differing characteristics, while preserving clarity about which elements are data-driven and which are analyst-defined. In this way, reproducibility is maintained not by freezing parameters, but by documenting them.
+
+Geometry-first methods support this discipline by operating on directly observable quantities. Because geometric descriptors such as curvature and directional change are computed from positional data, their derivation can be fully specified and independently reproduced. There is no reliance on hidden representations or learned weights whose behavior cannot be readily inspected.
+
+Importantly, reproducibility in this context does not imply invariance of outcomes. Different analysts may reasonably select different thresholds or segmentation criteria based on the data at hand. What matters is that these choices are transparent and that their consequences are traceable. Methodological discipline is therefore defined not by uniformity of results, but by clarity of process.
+
+By prioritizing reproducibility and disciplined methodology, geometry-first analysis establishes a stable foundation for subsequent inquiry. Whether later stages involve statistical modeling, learning-based approaches, or comparative analysis across datasets, this foundation ensures that interpretations remain anchored to observable structure rather than to opaque or assumption-heavy constructs.
+
+\section{Scope, Limitations, and Applicability}
+
+The geometry-first framework described in this manuscript is intended as a descriptive and organizational approach to motion analysis under data constraints. It does not aim to infer physical causes, predict future behavior, or recover latent variables that are not directly observable in the data. Its scope is deliberately limited to what can be measured, inspected, and reproduced from available observations.
+
+One primary limitation of this framework is that geometric descriptors alone cannot determine underlying dynamics or intent. Curvature, state transitions, and trajectory structure describe how motion appears, not why it occurs. As such, conclusions drawn from geometry-first analysis must remain confined to observable behavior. Any attempt to extend these descriptions into causal or explanatory claims requires additional assumptions and external information that lie outside the framework’s remit.
+
+The framework is also sensitive to data quality in ways that must be acknowledged explicitly. Noise, tracking error, temporal sparsity, and projection effects can all influence geometric measurements. While geometry-first methods can remain applicable under uncertainty, they do not eliminate ambiguity. Instead, they make ambiguity visible. Analysts must therefore treat geometric patterns as provisional descriptions that may change with improved data or alternative preprocessing choices.
+
+Discrete motion states, as introduced here, are operational constructs rather than intrinsic properties of motion. Their definitions depend on analyst-selected thresholds and segmentation criteria. Although these choices can be made explicit and tested, they are not uniquely determined by the data. Consequently, state labels should not be interpreted as definitive classifications, but as tools for organizing observation and comparison.
+
+The applicability of a geometry-first approach is strongest in contexts where interpretability, transparency, and constraint awareness are prioritized over predictive performance. This includes exploratory analysis, methodological validation, comparative studies across datasets, and situations where sensor limitations preclude reliable estimation of physical quantities. In contrast, domains requiring precise dynamical modeling, causal inference, or long-horizon prediction may require additional methods beyond the scope of this framework.
+
+By articulating these limitations explicitly, the geometry-first approach preserves its intended role as a methodological foundation rather than a comprehensive solution. Its value lies not in resolving uncertainty, but in structuring it—providing a disciplined way to reason about motion when certainty is unavailable and assumptions must be kept visible.
+
+\section{Conclusion}
+
+This manuscript has presented a geometry-first approach to motion analysis as a descriptive, constraint-aware methodology rather than a comprehensive solution. By prioritizing observable structure, explicit assumptions, and reproducible procedures, the framework emphasizes clarity over certainty and discipline over inference.
+
+The intent of this work is not to replace existing analytical approaches, but to complement them. Geometry-first reasoning is positioned as an initial lens through which motion can be examined when data quality is limited, uncertainty is unavoidable, or interpretability is essential. In such contexts, descriptive structure can serve as a stabilizing foundation upon which other methods may be meaningfully applied.
+
+By articulating scope and limitations explicitly, this framework invites integration rather than competition. Its value lies in supporting careful reasoning, facilitating comparison across analyses, and preserving openness to revision as new data or perspectives emerge. The goal is not to resolve ambiguity, but to engage with it responsibly.
+
+Ultimately, the geometry-first approach reflects a commitment to methodological integrity in motion analysis. It offers a way to explore complex phenomena without over-extension, ensuring that conclusions remain proportional to evidence and that inquiry remains grounded in what can be observed, tested, and shared.
+
+\end{document}
