@@ -5,6 +5,11 @@ The format is based on the guidelines of Keep a Changelog
 (https://keepachangelog.com/en/1.0.0/),  
 and this project adheres to semantic versioning.
 
+## v1.3.0 - 2025-12-15
+- Added Appendix A: Observable Robustness and Non-Causal Validation (protocol-ready).
+- Formalizes non-causal robustness checks for motion-state transitions.
+- No changes to results, datasets, or interpretations.
+
 ## [1.2.0] - 2025-12-10
 ### Added
 - Updated unified manuscript (PDF and LaTeX source) with refined text and clarified methodology.
