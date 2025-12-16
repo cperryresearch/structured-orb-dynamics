@@ -33,6 +33,12 @@ No results, datasets, figures, or conclusions were changed.
 
 **Note on versioning:** Zenodo assigns internal archival version numbers to each record update. The manuscript’s semantic version (v1.3.0) is authoritative and is reflected in the title, changelog, and release notes.
 
+## Author
+
+**Cassandra Perry**  
+Independent Researcher  
+ORCID: https://orcid.org/0009-0001-1998-1481
+
 ## Downloads
 
 The latest version of the unified manuscript and full repository snapshot is archived on Zenodo:
