@@ -5,10 +5,18 @@ The format is based on the guidelines of Keep a Changelog
 (https://keepachangelog.com/en/1.0.0/),  
 and this project adheres to semantic versioning.
 
-## v1.3.0 - 2025-12-15
-- Added Appendix A: Observable Robustness and Non-Causal Validation (protocol-ready).
-- Formalizes non-causal robustness checks for motion-state transitions.
-- No changes to results, datasets, or interpretations.
+## [v1.3.0] — 2025-12-16
+
+### Added
+- Appendix A: *Observable Robustness and Non-Causal Validation*, defining a protocol-ready set of non-causal robustness checks for curvature-based motion-state transitions.
+
+### Clarified
+- Formal distinction between semantic manuscript versioning and Zenodo archival versioning.
+- Citation guidance updated to reference the Zenodo concept DOI, which always resolves to the latest archived version.
+
+### Notes
+- No results, datasets, figures, or conclusions were changed.
+- This update formalizes quality-assurance procedures only.
 
 ## [1.2.0] - 2025-12-10
 ### Added
