@@ -31,9 +31,7 @@ This release adds **Appendix A: Observable Robustness and Non-Causal Validation*
 
 No results, datasets, figures, or conclusions were changed.
 
-> **Note on versioning:**  
-> Zenodo assigns internal archival version numbers to each record update.  
-> The manuscript’s semantic version (v1.3.0) is authoritative and is reflected in the title, changelog, and release notes.
+**Note on versioning:** Zenodo assigns internal archival version numbers to each record update. The manuscript’s semantic version (v1.3.0) is authoritative and is reflected in the title, changelog, and release notes.
 
 ## Downloads
 
@@ -46,6 +44,8 @@ This DOI provides access to:
 - The unified manuscript (PDF)
 - A full repository snapshot (ZIP)
 - Versioned archival records for citation and reproducibility
+
+For citation, use the concept DOI (it always resolves to the latest archived version).
 
 ---
 
