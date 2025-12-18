@@ -5,6 +5,21 @@ The format is based on the guidelines of Keep a Changelog
 (https://keepachangelog.com/en/1.0.0/),  
 and this project adheres to semantic versioning.
 
+## [v1.4.0] — 2025-12-17
+
+### Added
+- Part VI-A: *Exploratory Extension — Application of Structured Orb Dynamics to Biological Migration Systems*.
+- Illustrative geometry-first state segmentation pipeline applied to GPS-tracked migratory passerine data (Movebank).
+- Three-panel illustrative figure set (trajectory projection, curvature proxy, and state-segmented path) demonstrating cross-domain applicability under partial observation.
+
+### Clarified
+- Explicit separation between kinematic description and biological interpretation in cross-domain applications.
+- Treatment of the *Orb* state as an uncertainty-dominated descriptive regime rather than a behavioral classification in known-class systems.
+
+### Notes
+- This extension is illustrative and methodological only; no new empirical claims, causal interpretations, or behavioral inferences are introduced.
+- Core SOD definitions, state criteria, and UAP analyses remain unchanged.
+
 ## [v1.3.0] — 2025-12-16
 
 ### Added
