@@ -3,7 +3,7 @@
 Looking for the geometry-first framework? Start with the methodology overview here:  
 https://github.com/cperryresearch/structured-orb-dynamics/tree/main/methodology
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17846786.svg)](https://doi.org/10.5281/zenodo.17846786)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18148257.svg)](https://doi.org/10.5281/zenodo.18148257)
 
 # Structured Orb Dynamics  
 Unified Manuscript and Data Repository
@@ -21,16 +21,24 @@ A standard scientific Python stack is sufficient (NumPy, SciPy, Matplotlib).
 
 ---
 
+## Licensing
+
+- **Code**: MIT License (see `LICENSE`)
+- **Manuscript, figures, and documentation**: Creative Commons Attribution 4.0 International (CC BY 4.0)  
+  (see `LICENSE-DOCS.md`)
+
+---
+
 ## Citation and Archival Record
 
 The Structured Orb Dynamics project is archived on Zenodo.
 
 - **Latest version (v1.5.0 — Validation Release):**  
-  https://zenodo.org/records/18003762
+  https://doi.org/10.5281/zenodo.18148257
 
 - **Concept DOI (resolves to all versions):**  
   https://doi.org/10.5281/zenodo.17846786
-
+  
 ---
 
 ## Latest Update (v1.5.0)
@@ -79,7 +87,7 @@ ORCID: https://orcid.org/0009-0001-1998-1481
 The unified manuscript and full repository snapshot are archived on Zenodo:
 
 - **Latest version (v1.5.0):**  
-  https://zenodo.org/records/18003762
+  https://doi.org/10.5281/zenodo.18148257
 
 - **Concept DOI (always resolves to the latest version):**  
   https://doi.org/10.5281/zenodo.17846786
@@ -154,17 +162,16 @@ https://doi.org/10.5281/zenodo.17846786
 
 For version-specific citation (v1.5.0):
 
-Perry, C. (2025). Structured Orb Dynamics: Unified Manuscript and Data Repository
+Perry, C. (2026). Structured Orb Dynamics: Unified Manuscript and Data Repository
 (v1.5.0 — Validation Release). Zenodo.
-https://zenodo.org/records/18003762
+https://doi.org/10.5281/zenodo.18148257
 
 ### BibTeX
-@misc{perry2025_structured_orb_dynamics_v150,
+@misc{perry2026_structured_orb_dynamics_v150,
   author    = {Perry, Cassandra},
   title     = {Structured Orb Dynamics: Unified Manuscript and Data Repository (v1.5.0 — Validation Release)},
-  year      = {2025},
-  doi       = {10.5281/zenodo.18003762},
-  url       = {https://doi.org/10.5281/zenodo.XXXXXXXX},
+  year      = {2026},
+  doi       = {10.5281/zenodo.18148257},
+  url       = {https://doi.org/10.5281/zenodo.18148257},
   publisher = {Zenodo}
-}
 
