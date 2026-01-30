@@ -11,6 +11,7 @@ This page does not introduce new results or claims.
 ## Geometry-First Posture
 
 Looking for the geometry-first framework? Start with the methodology overview here:  
+
 https://github.com/cperryresearch/structured-orb-dynamics/tree/main/methodology
 
 ---
@@ -26,6 +27,7 @@ All components — manuscript, data, and analysis code — are maintained togeth
 
 The project analyzes image-plane motion using a minimal set of geometric tools.  
 Curvature, basic derivative estimates, and a simple state model are used to summarize apparent motion in stabilized infrared recordings (PR-018).  
+
 No physical assumptions are imposed; all results derive strictly from quantities observable in the image plane.
 
 A standard scientific Python stack is sufficient (NumPy, SciPy, Matplotlib).
@@ -36,6 +38,7 @@ A standard scientific Python stack is sufficient (NumPy, SciPy, Matplotlib).
 
 Structured Orb Dynamics is not a predictive model, an intent classifier,
 or an operational system.
+
 It does not infer physical mechanisms, forces, or agency.
 
 All outputs are geometric summaries of observed motion under uncertainty.
@@ -53,6 +56,7 @@ The unified manuscript and full repository snapshot are archived on Zenodo:
   https://doi.org/10.5281/zenodo.17846786
   
 Each record includes:
+
 - Unified manuscript (PDF)
 - Full repository snapshot (ZIP)
 - Versioned archival metadata for citation and reproducibility
@@ -110,6 +114,7 @@ These results demonstrate that:
 - The SOD framework remains conservative under both coarse and fine sampling
 
 No new empirical claims are introduced.
+
 Core SOD definitions, thresholds, and state rules remain unchanged.
 
 ---
@@ -132,6 +137,7 @@ The results reproduced here match those described in the manuscript.
 ## GIMBAL Note
 
 A brief qualitative write-up is included.  
+
 No trajectory could be extracted, and therefore no curvature or state estimates are available within the current framework.
 
 ---
@@ -146,13 +152,10 @@ Planned future work includes:
 - Part VII: Orb Motion Classifier (machine learning)
 - Part VIII: Physics-informed kinematic envelope analysis
 
-All future extensions will retain geometry-first constraints and explicit
-negative controls.
+All future extensions will retain geometry-first constraints and explicit negative controls.
 
 ---
 
 ## How to Engage
 
-Questions, clarifications, and technical discussion are welcome via
-GitHub Discussions. This project favors careful, scope-aware discussion
-over speculative interpretation.
+Questions, clarifications, and technical discussion are welcome via GitHub Discussions. This project favors careful, scope-aware discussion over speculative interpretation.
