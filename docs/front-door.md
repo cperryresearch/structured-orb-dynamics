@@ -72,11 +72,13 @@ Paths may need adjustment depending on the environment.
 
 Example (command sequence only):
 
+Example (command sequence only):
+
 ```bash
 python tracking/run_tracking.py
 python features/compute_features.py
 python model/run_state_model.py
-
+```
 ---
 
 ## Latest Update (v1.5.0)
