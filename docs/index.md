@@ -6,4 +6,4 @@ For project orientation, scope, artifacts, and limits, see the Front Door docume
 
 Repository source and code:
 
-→ https://github.com/cperryresearch/structured-orb-dynamics
+→ [https://github.com/cperryresearch/structured-orb-dynamics](https://github.com/cperryresearch/structured-orb-dynamics)
