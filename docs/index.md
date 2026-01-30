@@ -1,3 +1,5 @@
+![Structured Orb Dynamics logo](logo.PNG)
+
 # Structured Orb Dynamics — Front Door
 
 For project orientation, scope, artifacts, and limits, see the Front Door document:
