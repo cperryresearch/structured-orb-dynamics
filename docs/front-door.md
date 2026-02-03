@@ -49,8 +49,8 @@ All outputs are geometric summaries of observed motion under uncertainty.
 
 The unified manuscript and full repository snapshot are archived on Zenodo:
 
-- **Latest version (v1.5.0):**  
-  https://doi.org/10.5281/zenodo.18148257
+- **Latest version (v1.6.0):**  
+  https://doi.org/10.5281/zenodo.18466432
 
 - **Concept DOI (always resolves to the latest version):**  
   https://doi.org/10.5281/zenodo.17846786
@@ -83,7 +83,15 @@ python model/run_state_model.py
 ```
 ---
 
-## Latest Update (v1.5.0)
+## Latest Update (v1.6.0)
+
+This release introduces an explicit audit-boundary demonstration within the Methods section of the unified manuscript, illustrating intentional withholding behavior when geometric support is insufficient for motion-state assignment.
+
+No classifier logic, thresholds, analytical results, or interpretive scope were changed.
+
+---
+
+## Recent Validation Update (v1.5.0)
 
 **Validation-focused release confirming SOD restraint.**
 
