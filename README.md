@@ -1,6 +1,6 @@
 For project orientation and scope, see docs/front-door.md.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18148257.svg)](https://doi.org/10.5281/zenodo.18148257)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18466432.svg)](https://doi.org/10.5281/zenodo.18466432)
 
 ---
 
@@ -16,8 +16,8 @@ For project orientation and scope, see docs/front-door.md.
 
 The Structured Orb Dynamics project is archived on Zenodo.
 
-- **Latest version (v1.5.0 — Validation Release):**  
-  https://doi.org/10.5281/zenodo.18148257
+- **Latest version (v1.6.0 — Audit-Boundary Methods Update):**  
+  https://doi.org/10.5281/zenodo.18466432
 
 - **Concept DOI (resolves to all versions):**  
   https://doi.org/10.5281/zenodo.17846786
@@ -34,8 +34,8 @@ ORCID: https://orcid.org/0009-0001-1998-1481
 
 ## Downloads
 
-- **Latest version (v1.5.0):**  
-  https://doi.org/10.5281/zenodo.18148257
+- **Latest version (v1.6.0):**  
+  https://doi.org/10.5281/zenodo.18466432
 
 - **Concept DOI (always resolves to the latest version):**  
   https://doi.org/10.5281/zenodo.17846786
@@ -47,20 +47,20 @@ ORCID: https://orcid.org/0009-0001-1998-1481
 Use the Zenodo concept DOI above to cite the latest version of this repository.
 https://doi.org/10.5281/zenodo.17846786
 
-For version-specific citation (v1.5.0):
+For version-specific citation (v1.6.0):
 
 Perry, C. (2026). Structured Orb Dynamics: Unified Manuscript and Data Repository
-(v1.5.0 — Validation Release). Zenodo.
-https://doi.org/10.5281/zenodo.18148257
+(v1.6.0 — Audit-Boundary Methods Update). Zenodo.
+https://doi.org/10.5281/zenodo.18466432
 
 ---
 
 ### BibTeX
-@misc{perry2026_structured_orb_dynamics_v150,
+@misc{perry2026_structured_orb_dynamics_v160,
   author    = {Perry, Cassandra},
-  title     = {Structured Orb Dynamics: Unified Manuscript and Data Repository (v1.5.0 — Validation Release)},
+  title     = {Structured Orb Dynamics: Unified Manuscript and Data Repository (v1.6.0 — Audit-Boundary Methods Update)},
   year      = {2026},
-  doi       = {10.5281/zenodo.18148257},
-  url       = {https://doi.org/10.5281/zenodo.18148257},
+  doi       = {10.5281/zenodo.18466432},
+  url       = {https://doi.org/10.5281/zenodo.18466432},
   publisher = {Zenodo}
 
