@@ -1,3 +1,4 @@
+
 % ======================================
 % MAIN MANUSCRIPT STRUCTURE (CLEANED)
 % ======================================
@@ -34,6 +35,70 @@ straight stretches, a sustained turning interval, and several brief low-velocity
 where the geometry becomes harder to interpret. These findings do not identify the object, 
 but they do outline what the video reliably contains and where its interpretive limits begin.
 \end{abstract}
+
+\section{Methods}
+\label{sec:methods}
+
+\subsection{Method Scope and Positioning}
+\label{subsec:methods_scope}
+
+Structured Orb Dynamics (SOD) is applied after a trajectory has already been reconstructed. In
+practice, the method is used to examine how the apparent motion of a tracked point changes over
+time. SOD does not perform tracking itself. Instead, it evaluates whether the geometry of a
+trajectory supports stable interpretations such as straight motion, sustained turning, or
+intervals where apparent displacement becomes very small.
+
+The framework is agnostic to how trajectories are obtained. In this work, it is applied to
+stabilized image-plane tracks derived from infrared video, but the same analysis can be performed
+on trajectories produced by learned trackers, optical-flow methods, or manual annotation. What
+matters is not visual continuity, but whether geometric behavior persists long enough to support
+interpretation. Persistence is enforced using explicit minimum-run requirements described in
+Part~III. When this condition is not met, segments are left unclassified, and trajectories may
+fragment or collapse as the geometry becomes unreliable.
+
+All outputs produced by SOD are descriptive. State labels summarize patterns in image-plane motion
+only; they are not causal claims and are not intended to represent physical forces, control
+mechanisms, object identity, or intent.
+
+\subsection{Inputs and Assumptions}
+\label{subsec:methods_inputs}
+
+The primary input to the method is a two-dimensional trajectory expressed in image-plane
+coordinates and sampled at discrete time steps. Each position is assumed to correspond to the same
+tracked point or object across frames; the method does not attempt to resolve identity beyond this
+geometric consistency.
+
+The analysis operates entirely in the image plane. No camera calibration, range information, or
+external metadata is required. No assumptions are made regarding mass, propulsion, aerodynamic
+forces, or sensor-specific dynamics. All quantities used in classification are derived directly
+from geometric relationships within the observed trajectory and are interpreted only in that
+context.
+
+\subsection{Procedural Overview}
+\label{subsec:methods_overview}
+
+The analysis proceeds in three stages. First, a trajectory is reconstructed and smoothed to reduce
+high-frequency tracking noise (Part~I). From this stabilized path, geometric quantities such as
+curvature and apparent velocity are computed (Part~II). Motion states are then assigned using
+explicit geometric criteria and temporal persistence requirements, yielding a discrete sequence of
+geometric regimes (Part~III).
+
+The following sections apply this procedure to empirical data used in this study and examine its
+behavior under both representative examples and control conditions.
+
+\subsection{Audit Boundary and Withholding Demonstration}
+\label{subsec:methods_audit_boundary}
+
+An essential feature of Structured Orb Dynamics is its ability to withhold classification when the observed geometry does not support a stable or persistent motion-state assignment. Rather than forcing labels onto short, noisy, or weakly constrained segments, the framework treats \mbox{non-classification} as a valid and informative outcome. This behavior functions as an internal audit boundary: it marks regions of the trajectory where the available image-plane information is insufficient to sustain geometric interpretation under the persistence criteria defined in Part~III. The purpose of this demonstration is not to introduce a new method but to make this withholding behavior explicit and inspectable.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/pcmsat_withhold_visual.png}
+    \caption{Withholding outcome under the Structured Orb Dynamics decision rules. The \mbox{reconstructed} trajectory and associated geometric signals are shown for a segment in which curvature, apparent speed, or temporal persistence do not meet the minimum requirements for stable \mbox{motion-state} assignment. No motion label is produced for this interval. This figure illustrates the intentional audit boundary of the method: when geometric support is insufficient, classification is withheld rather than inferred.}
+    \label{fig:pcmsat_withhold}
+\end{figure}
+
+The underlying audit artifact associated with this demonstration is archived separately in a public repository for transparency and reference, without introducing coupling or implementation dependencies within the present manuscript.
 
 \section*{Contributions}
 
@@ -107,6 +172,24 @@ To ensure that identified motion-state transitions reflect observable structure 
 % =======================
 \input{manuscripts/Part_V_Unified_Framework/part5}
 
+\clearpage
+
+% ============================================================
+% Part VI-A: Biological Migration Extension
+% ============================================================
+
+\section{Part VI-A: Biological Migration Extension}
+\label{sec:part-vi-a}
+\addcontentsline{toc}{section}{Part VI-A: Biological Migration Extension}
+
+\input{manuscripts/Part_VI_A_Exploratory_Extension/part5A}
+
+% legacy / deprecated results draft (tables) — keep out of build
+% \input{manuscripts/Part_VI_A_Exploratory_Extension/part6a}
+
+\input{manuscripts/Part_VI_A_Exploratory_Extension/part6b}
+\input{manuscripts/Part_VI_A_Exploratory_Extension/part6c}
+
 % ======================================
 % SUPPLEMENTARY GIMBAL ANALYSIS
 % ======================================
@@ -123,6 +206,8 @@ To ensure that identified motion-state transitions reflect observable structure 
 Cassandra Perry: Conceptualization; methodology; data curation; geometric analysis; model
 development; manuscript preparation; validation; software design; interpretation of results;
 project administration.
+
+ORCID: 0009-0001-1998-1481
 
 % ======================================
 % ACKNOWLEDGMENTS
@@ -171,6 +256,9 @@ explore methods for multi-sensor fusion when partial telemetry is available. The
 broader outlook is the development of a generalizable motion-analysis toolkit 
 suitable for research domains where observational constraints are the norm rather 
 than the exception.
+
+\paragraph{Role of Known-Class Motion Systems.}
+Part VI-A is included as an minimal empirical extension intended to examine the internal coherence of the Structured Orb Dynamics (SOD) framework when applied to a known-class motion system observed under partial and uncertain conditions. The migratory bird trajectories considered therein are not used to infer biological behavior, navigation strategy, or optimization, nor are they presented as validation benchmarks. Instead, they serve as a controlled reference domain for assessing whether the same geometry-first state definitions and segmentation logic employed in UAP trajectory analysis remain stable when object class is known but observational completeness is limited. This comparison clarifies the scope of SOD as a descriptive motion-inference framework rather than a domain-specific explanatory model.
 
 \clearpage
 
