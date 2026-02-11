@@ -70,6 +70,7 @@ Each record includes:
 `data/` – Processed PR-018 trajectory and feature series used in the figures.  
 `results/` – Plots, traces, and reconstructed motion visualizations.  
 `supplement/` – Short notes on the GIMBAL dataset (qualitative only).
+`state-trace-renderer/` – Minimal, visualization-only utility for deterministically rendering precomputed State-Segmented Motion Traces for inspection and reproducibility (no segmentation or inference).
 
 Running the scripts will regenerate the feature series and the plots.  
 Paths may need adjustment depending on the environment.
