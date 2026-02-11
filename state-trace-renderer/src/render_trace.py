@@ -73,12 +73,13 @@ def render_trace(bundle_path: str | Path, out_path: str | Path = "trace.png"):
     ax_traj.set_xlabel("x (m)")
     ax_traj.set_ylabel("y (m)")
     ax_traj.set_title("State-Segmented Trajectory")
+    ax_traj.set_aspect("equal")   # preserve geometry
     ax_traj.legend(frameon=False)
 
-    # ---- Panel B: signal ----
+    # ---- Panel B: curvature signal ----
     ax_sig.plot(t, signal, linewidth=1)
     ax_sig.set_xlabel("time")
-    ax_sig.set_ylabel(meta.get("signal_name", "signal") if meta else "signal")
+    ax_sig.set_ylabel("curvature (1/m)")
 
     if meta:
         fig.suptitle(meta.get("dataset", "State Trace Renderer Example"))
