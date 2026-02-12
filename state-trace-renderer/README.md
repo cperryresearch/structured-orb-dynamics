@@ -46,3 +46,54 @@ The component is not a model, classifier, or decision system. It makes no claims
 This directory contains only the minimal code required to render State-Segmented Motion Traces for documentation, examples, and reproducible figures accompanying the SOD manuscript.
 
 It should remain small, bounded, and implementation-focused.
+
+## Reproducibility Notes
+
+The State Trace Renderer is designed to produce deterministic output from fixed inputs.
+
+To support reproducibility:
+
+- The renderer performs **no state computation, smoothing, resampling, or inference**.
+- All figures are generated from precomputed artifacts.
+- The canonical example (`examples/barn_swallow_vi_b_example.png`) is treated as a reference output.
+- Equal-aspect geometry is enforced to prevent spatial distortion.
+- Fixed SOD state color mapping is applied consistently.
+
+---
+
+### Environment
+
+Reproducibility was verified using:
+
+- Python 3.11.x  
+- matplotlib 3.8.x  
+- numpy 1.26.x  
+
+Exact versions may be pinned in a `requirements.txt` file if stricter environment locking is required.
+
+---
+
+### Deterministic Output Verification
+
+Running:
+
+```bash
+python src/render_trace.py
+```
+
+should regenerate the canonical example PNG without visual deviation.
+
+Optional hash verification instructions are provided below.
+
+---
+
+### Canonical PNG SHA256
+
+Reference file: `examples/barn_swallow_vi_b_example.png`
+
+SHA256:
+
+63053D7CBFB11561ACCA8E2C08FE1909516DAF4BB9A0BC88028D42F193634E21
+
+After regenerating the figure, recompute the hash locally and confirm byte-level identity to verify deterministic rendering.
+
